@@ -1,0 +1,500 @@
+/**
+ * Compact Theme - Ultra-Dense Dark Professional
+ * Target: Maximum information density with dark enterprise aesthetics
+ * Format: Ultra-compressed table optimized for executive dashboards
+ * Colors: Dark professional palette suitable for enterprise environments
+ */
+
+:root {
+    /* Dark Professional Enterprise Palette */
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #111827;
+    --bg-surface: #1f2937;
+    --bg-header: #000000;
+    --bg-stripe: #1e293b;
+    --border-color: #374151;
+    --border-light: #4b5563;
+    --border-accent: #3b82f6;
+
+    /* Dark Professional Typography */
+    --text-primary: #f8fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #9ca3af;
+    --text-accent: #60a5fa;
+    --text-light: #6b7280;
+
+    /* Professional Status Colors (Dark Optimized) */
+    --status-completed: #10b981;
+    --status-progress: #f59e0b;
+    --status-planned: #3b82f6;
+    --status-hold: #9ca3af;
+
+    /* Compact Metrics - Ultra-minimal spacing */
+    --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --border-radius: 2px;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.375rem;
+    --spacing-md: 0.5rem;
+
+    /* Ultra-Compact Typography */
+    --font-primary: 'SF Pro Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-size-xs: 0.6rem;
+    --font-size-sm: 0.75rem;
+    --font-size-md: 0.875rem;
+    --font-size-lg: 1rem;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+}
+
+/* Ultra-Compact Dark Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.2;
+    font-size: var(--font-size-sm);
+}
+
+.container {
+    max-width: 99vw;
+    margin: 0 auto;
+    padding: var(--spacing-sm);
+}
+
+/* Dark Executive Header */
+.header {
+    background: linear-gradient(135deg, #000000 0%, #111827 100%);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid #1f2937;
+}
+
+.header h1 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.header .subtitle {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+    color: #9ca3af;
+}
+
+/* Compact Dark Category Sections */
+.category-section {
+    margin-bottom: var(--spacing-sm);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+.category-header {
+    background: linear-gradient(90deg, #1f2937 0%, #374151 100%);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.category-icon {
+    font-size: var(--font-size-sm);
+}
+
+.category-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.project-count {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    padding: 2px var(--spacing-xs);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+}
+
+/* Ultra-Dense Dark Table */
+.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-xs);
+    background: var(--bg-secondary);
+}
+
+.projects-table th {
+    background: linear-gradient(180deg, #000000 0%, #111827 100%);
+    color: white;
+    padding: var(--spacing-xs);
+    text-align: left;
+    font-weight: var(--font-weight-medium);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.projects-table th:last-child {
+    border-right: none;
+}
+
+.project-header {
+    width: 200px;
+    min-width: 200px;
+}
+
+.quarter-header {
+    width: 150px;
+    min-width: 150px;
+    text-align: center;
+    font-size: var(--font-size-xs);
+}
+
+.quarter-header.next-quarter {
+    background: linear-gradient(180deg, #1e40af 0%, #1d4ed8 100%);
+    color: white;
+}
+
+.quarter-header.past-quarter {
+    background: linear-gradient(180deg, #374151 0%, #4b5563 100%);
+    color: #d1d5db;
+}
+
+/* Ultra-Compact Project Rows */
+.project-row {
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.project-row:nth-child(even) {
+    background: var(--bg-stripe);
+}
+
+.project-row:hover {
+    background: var(--bg-surface);
+}
+
+.project-info {
+    padding: var(--spacing-xs);
+    border-right: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.project-name {
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    line-height: 1.1;
+}
+
+.project-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-name a:hover {
+    color: var(--text-accent);
+    text-decoration: underline;
+}
+
+.project-meta {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    line-height: 1.1;
+}
+
+/* Ultra-Compact Quarter Cells */
+.quarter-cell {
+    padding: var(--spacing-xs);
+    border-right: 1px solid var(--border-color);
+    vertical-align: top;
+    position: relative;
+    width: 150px;
+    min-width: 150px;
+}
+
+.quarter-cell:last-child {
+    border-right: none;
+}
+
+.quarter-cell.next-quarter {
+    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+    border-left: 2px solid #3b82f6;
+}
+
+.quarter-cell.past-quarter {
+    background: #0f172a;
+    opacity: 0.8;
+}
+
+.quarter-cell.empty {
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+/* Ultra-Compact Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 2px;
+    line-height: 1.1;
+}
+
+.status-badge.completed {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--status-completed);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.status-badge.in-progress {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--status-progress);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.status-badge.planned {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--status-planned);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.status-badge.on-hold {
+    background: rgba(156, 163, 175, 0.2);
+    color: var(--status-hold);
+    border: 1px solid rgba(156, 163, 175, 0.4);
+}
+
+.status-badge.no-info {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+/* Ultra-Compact Quarter Content */
+.quarter-content {
+    font-size: var(--font-size-xs);
+}
+
+.quarter-description {
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+    line-height: 1.2;
+    font-weight: var(--font-weight-medium);
+}
+
+.quarter-details {
+    margin-bottom: 2px;
+}
+
+.detail-item {
+    color: var(--text-muted);
+    margin-bottom: 1px;
+    line-height: 1.1;
+    font-size: var(--font-size-xs);
+}
+
+/* Compact Extra Info */
+.extra-info {
+    margin-top: 2px;
+    padding-top: 2px;
+    border-top: 1px solid var(--border-color);
+}
+
+.extra-info > div {
+    margin-bottom: 2px;
+}
+
+.extra-info > div:last-child {
+    margin-bottom: 0;
+}
+
+.progress-info,
+.metrics-info,
+.risks-info,
+.objectives-info,
+.dependencies-info {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    line-height: 1.1;
+}
+
+.progress-info strong,
+.metrics-info strong,
+.risks-info strong,
+.objectives-info strong,
+.dependencies-info strong {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Dark Metrics Section */
+.metrics-section {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
+}
+
+.metrics-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.metrics-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.kpis-list,
+.risks-section {
+    background: var(--bg-surface);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+}
+
+.kpis-list h3,
+.risks-section h3 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.kpi-item,
+.risk-item {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.3;
+}
+
+/* Dark Legend */
+.legend-section {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-subtle);
+}
+
+.legend-section h3 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    background: var(--bg-surface);
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+}
+
+.legend-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 1px;
+    flex-shrink: 0;
+}
+
+.legend-status.completed {
+    background: var(--status-completed);
+}
+
+.legend-status.in-progress {
+    background: var(--status-progress);
+}
+
+.legend-status.planned {
+    background: var(--status-planned);
+}
+
+.legend-status.on-hold {
+    background: var(--status-hold);
+}
+
+.next-quarters-info {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+/* Responsive Ultra-Compact */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100vw;
+        padding: var(--spacing-xs);
+    }
+
+    .quarter-header,
+    .quarter-cell {
+        width: 120px;
+        min-width: 120px;
+    }
+
+    .project-header {
+        width: 180px;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .quarter-header,
+    .quarter-cell {
+        width: 100px;
+        min-width: 100px;
+    }
+
+    .project-header {
+        width: 150px;
+        min-width: 150px;
+    }
+
+    .metrics-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .legend-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -117,7 +117,3 @@ Thumbs.db
 # Test artifacts
 test-data.yaml
 test-dist/
-
-# Roadmap generator specific
-*.html
-!templates/*.html

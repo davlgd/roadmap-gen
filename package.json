@@ -1,6 +1,6 @@
 {
   "name": "roadmap-gen",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "HTML roadmap generator from YAML data",
   "type": "module",
   "bin": {
@@ -11,6 +11,7 @@
     "index.ts",
     "src/",
     "templates/",
+    "themes/",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"

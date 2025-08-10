@@ -10,15 +10,16 @@ Transform your project roadmap into beautiful, interactive visualizations. Built
 
 ## ✨ Features
 
-- **🎨 Professional Design**: Dark theme with responsive layout and smooth animations
+- **🎨 Multiple Themes**: Executive, Developer, and Marketing themes for different audiences
 - **📊 Rich Visualizations**: Interactive project tracking across quarters with status indicators
 - **⚡ Lightning Fast**: Built with Bun runtime for optimal performance
 - **🔧 Easy Configuration**: Simple YAML format for defining roadmap
+- **📁 Flexible Output**: Custom output directories for different deployment needs
 - **📱 Responsive**: Works perfectly on desktop, tablet, and mobile devices
 - **🚀 Dual Usage**: Both CLI tool and programmatic API
 - **🎯 Export Ready**: Generate standalone HTML files for easy sharing
 - **📈 Flexible Progress**: Support for percentages, fractions, phases, or custom text
-- **🌍 Year-Agnostic**: Automatically adapts to current year, no hardcoded dates
+- **🌍 Year-Agnostic**: Automatically adapts to current year, no hard coded dates
 
 ### Visual Status Tracking
 
@@ -26,6 +27,38 @@ Transform your project roadmap into beautiful, interactive visualizations. Built
 - 🟡 **In Progress** - Active development
 - 🔵 **Planned** - Approved and scheduled
 - ⏸️ **On Hold** - Temporarily suspended
+
+## 🛠️ Installation
+
+### Package Manager
+
+```bash
+# Using Bun (recommended)
+bun add roadmap-gen
+
+# Using npm
+npm install roadmap-gen
+
+# Using yarn
+yarn add roadmap-gen
+```
+
+### Pre-compiled Binaries
+
+Download platform-specific binaries from the [releases page](https://github.com/davlgd/roadmap-gen/releases):
+
+- **Linux**: `roadmap-gen-linux-x64`, `roadmap-gen-linux-arm64`
+- **macOS**: `roadmap-gen-darwin-arm64`
+- **Windows**: `roadmap-gen-win32-x64.exe`
+
+### From Source
+
+```bash
+git clone https://github.com/davlgd/roadmap-gen.git
+cd roadmap-gen
+bun install
+bun run build
+```
 
 ## 🚀 Quick Start
 
@@ -46,6 +79,17 @@ roadmap-gen
 roadmap-gen --source ./my-roadmap.yaml
 roadmap-gen -s ./config/roadmap.yaml
 
+# Use different themes
+roadmap-gen --template themes/mobile
+roadmap-gen -t themes/compact
+
+# Custom output directory
+roadmap-gen --output ./public
+roadmap-gen -o ./reports
+
+# Combined options
+roadmap-gen -s ./data/roadmap.yaml -t themes/executive -o ./public
+
 # Show help
 roadmap-gen --help
 roadmap-gen -h
@@ -63,8 +107,10 @@ const html = generateHTML(roadmap);
 writeFileSync('roadmap.html', html);
 
 // Or use the main build function
-await build(); // Uses default roadmap.yaml
+await build(); // Uses defaults: roadmap.yaml, templates, dist
 await build('./custom-roadmap.yaml'); // Custom source file
+await build('./data.yaml', 'themes/light'); // Custom source + theme
+await build('./data.yaml', 'themes/cards', './public'); // All custom
 ```
 
 ## 📝 YAML Configuration
@@ -109,59 +155,57 @@ metrics:
     - 'Technical debt accumulation'
 ```
 
-## 🛠️ Installation
+## 🎨 Themes
 
-### Package Manager
+roadmap-gen includes multiple professionally designed themes for different audiences:
 
-```bash
-# Using Bun (recommended)
-bun add roadmap-gen
+### Available Themes
 
-# Using npm
-npm install roadmap-gen
+| Theme                            | Layout Format                           | Best For                                    |
+| -------------------------------- | --------------------------------------- | ------------------------------------------- |
+| **Cards** (`themes/cards`)       | Individual project cards in grid layout | Visual presentations, easy project scanning |
+| **Compact** (`themes/compact`)   | Ultra-dense table, minimal spacing      | Executive overviews, many projects          |
+| **Light** (`themes/light`)       | Professional light table layout         | Standard presentations, balanced view       |
+| **Mobile** (`themes/mobile`)     | Mobile-first responsive design          | Mobile viewing, touch-optimized interface   |
+| **Timeline** (`themes/timeline`) | Enhanced chronological visualization    | Timeline focus, project evolution           |
 
-# Using yarn
-yarn add roadmap-gen
-```
+### Creating Custom Themes
 
-### Pre-compiled Binaries
-
-Download platform-specific binaries from the [releases page](https://github.com/davlgd/roadmap-gen/releases):
-
-- **Linux**: `roadmap-gen-linux-x64`, `roadmap-gen-linux-arm64`
-- **macOS**: `roadmap-gen-darwin-arm64`
-- **Windows**: `roadmap-gen-win32-x64.exe`
-
-### From Source
-
-```bash
-git clone https://github.com/davlgd/roadmap-gen.git
-cd roadmap-gen
-bun install
-bun run build
-```
+1. Copy an existing theme: `cp -r themes/compact themes/my-theme`
+2. Customize `themes/my-theme/assets/styles.css` with your own layout
+3. Customize custom templates in `themes/my-theme/` if needed
+4. Customize assets (images, scripts) in `themes/my-theme/assets/`
+5. Use your theme: `roadmap-gen -t themes/my-theme`
 
 ## 🏗️ Architecture
 
 roadmap-gen follows modern TypeScript best practices with a clean, modular architecture:
 
 ```
-index.ts              # 🎯 Main entrypoint (CLI & API)
+index.ts                    # 🎯 Main entrypoint (CLI & API)
 src/
-├── core/             # Core business logic
-│   ├── build.ts     # Build orchestration
-│   ├── config.ts    # Configuration constants
-│   └── types.ts     # TypeScript definitions
-├── data/             # Data processing
-│   └── parser.ts    # YAML parsing & validation
-├── template/         # Template system
-│   ├── template.ts  # HTML template generation
-│   ├── template-loader.ts # Template loading & caching
-│   ├── html-generator.ts  # HTML generation
-│   └── html-utils.ts      # Utility functions
-└── assets/           # Static assets
-    ├── styles.css   # Professional styling
-    └── script.js    # Interactive features
+├── core/                   # Core business logic
+│   ├── build.ts            # Build orchestration
+│   ├── config.ts           # Configuration constants
+│   └── types.ts            # TypeScript definitions
+├── data/                   # Data processing
+│   └── parser.ts           # YAML parsing & validation
+├── template/               # Template system
+│   ├── template.ts         # HTML template generation
+│   ├── template-loader.ts  # Template loading & caching
+│   ├── html-generator.ts   # HTML generation
+│   └── html-utils.ts       # Utility functions
+├── assets/                 # Default static assets
+│   ├── styles.css          # Default styling
+│   └── script.js           # Interactive features
+├── templates/              # Default HTML templates
+├── themes/                 # 🎨 Multiple themes
+├── default/                # Default theme
+├── compact/                # Compact high-density theme
+├── timeline/               # Timeline visualization theme
+├── cards/                  # Card-based layout theme
+├── mobile/                 # Mobile-optimized theme
+└── README.md               # Theme documentation
 ```
 
 ## 🔧 Development
@@ -223,7 +267,7 @@ bun test --coverage
 
 ### Template System
 
-- **External Templates**: HTML templates stored in `templates/` directory
+- **External Templates**: Default template stored in `templates/` directory
 - **Variable Replacement**: Simple `{{variable}}` syntax for dynamic content
 - **Template Caching**: Automatic caching for improved performance
 - **Easy Customization**: Modify HTML structure without touching TypeScript

@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2025-08-10
+
+### Added
+
+- 📁 **Custom Output Directory**: `--output` / `-o` option to specify custom output directories
+- 🎯 **Template System**: `--template` / `-t` option to use different theme directories
+- 🎨 **Multiple Themes**: Example themes for different audiences and use cases
+
+### Enhanced
+
+- **API**: `build()` function now accepts `templateDir` and `outputDir` parameters
+- **CLI Interface**: Extended help documentation with new theme and output options
+- **Asset Management**: Smart asset copying that handles both default and themed assets
+- **Template Loading**: Enhanced template loader to work with different theme directories
+
+### Technical
+
+- **Theme Architecture**: Modular theme system with individual asset directories
+- **Asset Resolution**: Intelligent asset path resolution for default vs themed templates
+- **Code Quality**: All code passes ESLint, Prettier, and EditorConfig validation
+- **Test Coverage**: Comprehensive test suite continues to pass with new functionality
+
 ## [0.2.2] - 2025-08-10
 
 ### Added

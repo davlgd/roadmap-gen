@@ -71,25 +71,11 @@ function highlightCurrentPeriod() {
  */
 function enhanceProjectRows() {
   document.querySelectorAll('.project-row').forEach(row => {
-    // Click handler (for future expansion)
     row.addEventListener('click', e => {
-      if (e.target.classList.contains('issue-link')) {
-        return; // Let links work normally
+      if (e.target.closest('.project-link')) {
+        return;
       }
-
-      // Future: modal with project details
       console.log('Project clicked:', row.querySelector('.project-name').textContent);
-    });
-
-    // Enhanced hover effects
-    row.addEventListener('mouseenter', function () {
-      this.style.transform = 'translateY(-1px)';
-      this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-    });
-
-    row.addEventListener('mouseleave', function () {
-      this.style.transform = 'translateY(0)';
-      this.style.boxShadow = 'none';
     });
   });
 }

@@ -89,7 +89,7 @@ describe('generateHTML', () => {
   test('should include metrics section', () => {
     const html = generateHTML(testRoadmap);
 
-    expect(html).toContain('📊 KPIs & Metrics');
+    expect(html).toContain('📊 Metrics & Risk Management');
     expect(html).toContain('User adoption &gt; 80%');
     expect(html).toContain('Technical debt accumulation');
   });

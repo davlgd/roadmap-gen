@@ -27,11 +27,11 @@ categories:
 
     const result = parseYAML(yamlContent);
 
-    expect(result.title).toBe('Test Roadmap');
-    expect(result.vision).toBe('Test vision for roadmap');
-    expect(result.quarters).toEqual(['Q1-2025', 'Q2-2025']);
-    expect(result.categories).toHaveLength(1);
-    expect(result.categories[0].projects).toHaveLength(1);
+    expect(result?.title).toBe('Test Roadmap');
+    expect(result?.vision).toBe('Test vision for roadmap');
+    expect(result?.quarters).toEqual(['Q1-2025', 'Q2-2025']);
+    expect(result?.categories).toHaveLength(1);
+    expect(result?.categories[0]?.projects).toHaveLength(1);
   });
 
   test('should throw error for invalid YAML', () => {
@@ -88,11 +88,11 @@ categories:
     const result = parseYAML(yamlContent);
     expect(() => validateRoadmap(result!)).not.toThrow();
 
-    const projects = result!.categories[0].projects;
-    expect(projects[0].quarters['Q1-2025'].progress).toBe('75%');
-    expect(projects[1].quarters['Q1-2025'].progress).toBe('3/5 tasks');
-    expect(projects[2].quarters['Q1-2025'].progress).toBe('Phase 2');
-    expect(projects[3].quarters['Q1-2025'].progress).toBe('MVP complete');
+    const projects = result?.categories[0]?.projects;
+    expect(projects?.[0]?.quarters['Q1-2025']?.progress).toBe('75%');
+    expect(projects?.[1]?.quarters['Q1-2025']?.progress).toBe('3/5 tasks');
+    expect(projects?.[2]?.quarters['Q1-2025']?.progress).toBe('Phase 2');
+    expect(projects?.[3]?.quarters['Q1-2025']?.progress).toBe('MVP complete');
   });
 });
 
@@ -159,7 +159,8 @@ describe('validateRoadmap', () => {
       ...validRoadmap,
       categories: [
         {
-          ...validRoadmap.categories[0],
+          name: 'Test Category',
+          icon: '🚀',
           projects: [
             {
               name: 'Hi',

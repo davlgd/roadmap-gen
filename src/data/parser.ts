@@ -179,7 +179,7 @@ function isValidProgress(progress: string): boolean {
 
   // If it's a percentage, validate the range
   const percentMatch = progress.match(/^(\d{1,3})%$/);
-  if (percentMatch) {
+  if (percentMatch && percentMatch[1]) {
     const value = parseInt(percentMatch[1], 10);
     const MAX_PROGRESS = 100;
     return value >= 0 && value <= MAX_PROGRESS;

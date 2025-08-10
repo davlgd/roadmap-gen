@@ -77,7 +77,7 @@ describe('Type definitions', () => {
 
     expect(minimalProject.name).toBe('Test Project');
     expect(fullProject.responsible).toBe('John Doe');
-    expect(fullProject.quarters['Q1-2025'].status).toBe('planned');
+    expect(fullProject.quarters['Q1-2025']?.status).toBe('planned');
   });
 
   test('Category should contain projects array', () => {

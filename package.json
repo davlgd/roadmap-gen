@@ -1,0 +1,58 @@
+{
+  "name": "roadmap-gen",
+  "version": "0.1.0",
+  "description": "HTML roadmap generator from YAML data",
+  "type": "module",
+  "bin": {
+    "roadmap-gen": "./index.ts"
+  },
+  "main": "./index.ts",
+  "files": [
+    "index.ts",
+    "src/",
+    "templates/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "bun run index.ts",
+    "dev": "bun run index.ts && bun run serve",
+    "serve": "bun --hot serve dist",
+    "clean": "rm -rf dist/*",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "lint": "eslint src/**/*.ts && editorconfig-checker",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "bun run lint && bun run format:check && bun test",
+    "fix": "bun run lint:fix && bun run format",
+    "validate": "bun run check && bun run build"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "keywords": [
+    "roadmap",
+    "yaml",
+    "html",
+    "generator",
+    "planning"
+  ],
+  "author": "davlgd",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/bun": "^1.2.19",
+    "@types/js-yaml": "^4.0.9",
+    "@types/prettier": "^2.7.3",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "editorconfig-checker": "^6.1.0",
+    "eslint": "^9.33.0",
+    "prettier": "^3.6.2"
+  }
+}

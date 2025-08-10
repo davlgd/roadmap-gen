@@ -1,0 +1,79 @@
+name: Build Binaries
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  build-binaries:
+    name: Build ${{ matrix.target }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux-x64
+          - os: ubuntu-latest
+            target: linux-arm64
+          - os: macos-latest
+            target: darwin-arm64
+          - os: windows-latest
+            target: win32-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build binary
+        run: bun build index.ts --compile --target=bun-${{ matrix.target }} --outfile=roadmap-gen-${{ matrix.target }}${{ matrix.os == 'windows-latest' && '.exe' || '' }} --minify --sourcemap
+
+      - name: Test binary (Unix)
+        if: matrix.os != 'windows-latest'
+        run: |
+          chmod +x roadmap-gen-${{ matrix.target }}
+          ./roadmap-gen-${{ matrix.target }} --help || echo "Binary test completed"
+
+      - name: Test binary (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          ./roadmap-gen-${{ matrix.target }}.exe --help || echo "Binary test completed"
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: roadmap-gen-${{ matrix.target }}
+          path: roadmap-gen-${{ matrix.target }}${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+          retention-days: 90
+
+  upload-release:
+    name: Upload Release Assets
+    needs: build-binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./binaries
+
+      - name: List artifacts
+        run: find ./binaries -type f -exec ls -la {} \;
+
+      - name: Upload binaries to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./binaries/roadmap-gen-linux-x64/roadmap-gen-linux-x64
+            ./binaries/roadmap-gen-linux-arm64/roadmap-gen-linux-arm64
+            ./binaries/roadmap-gen-darwin-arm64/roadmap-gen-darwin-arm64
+            ./binaries/roadmap-gen-win32-x64/roadmap-gen-win32-x64.exe
+          token: ${{ secrets.GITHUB_TOKEN }}

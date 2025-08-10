@@ -1,0 +1,332 @@
+title: 'Strategic Roadmap Q4-2025 to Q1-2026'
+vision: 'Accelerate product innovation and strengthen technical scalability'
+
+# Configuration of quarters to display
+quarters:
+  - Q2-2025
+  - Q3-2025
+  - Q4-2025
+  - Q1-2026
+
+# Next quarters (highlighted)
+next_quarters:
+  - Q4-2025
+  - Q1-2026
+
+# Organization by category then by project
+categories:
+  - name: 'Infrastructure & DevOps'
+    icon: '🏗️'
+    projects:
+      - name: 'Clever Cloud Migration'
+        responsible: 'Marie Dubois'
+        issue: 'https://github.com/company/infra/issues/101'
+        quarters:
+          Q1-2025:
+            status: 'completed'
+            description: 'Existing infrastructure audit completed'
+            details:
+              - 'Complete analysis of 50+ legacy servers'
+              - 'Migration cost evaluation estimated'
+              - 'Clever Cloud regions choice (PAR, WSW)'
+          Q2-2025:
+            status: 'completed'
+            description: 'Target architecture defined, migration plan validated'
+            details:
+              - 'Multi-zone architecture with auto-scaling'
+              - 'Phase-based migration plan approved'
+              - 'DevOps team training completed'
+              - 'Clever Cloud contracts negotiated and signed'
+          Q3-2025:
+            status: 'completed'
+            description: 'Staging environment migrated and tested'
+            details:
+              - 'Clever Cloud staging infrastructure operational'
+              - 'Load tests passed (10k simultaneous users)'
+              - 'Complete migration documentation'
+              - 'Rollback procedures validated'
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Production migration in progress, performance optimization'
+            details:
+              - 'Database migration scheduled December 15'
+              - 'DNS cutover planned for December 22'
+              - 'Monitoring dashboard configured'
+              - '35% cost reduction anticipated'
+            progress: '3/4 phases'
+            risks:
+              - 'Legacy dependencies more complex than expected'
+              - 'Support team training needed'
+          Q1-2026:
+            status: 'planned'
+            description: 'Migration finalization, advanced monitoring, cost optimization'
+            details:
+              - '100% migration completed by end of January'
+              - 'Smart auto-scaling implementation'
+              - 'Complete security audit'
+              - 'Final user documentation'
+            objectives:
+              - 'Infrastructure cost reduction 30%'
+              - 'Uptime 99.9%'
+              - 'Performance +40%'
+
+      - name: 'Monitoring & Observability'
+        responsible: 'Tech Team (Sarah L.)'
+        issue: 'https://github.com/company/infra/issues/102'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'Prometheus/Grafana/Loki stack selected and deployed'
+            details:
+              - 'Evaluation of 5 monitoring solutions'
+              - 'Prometheus vs DataDog POC completed'
+              - 'Infrastructure monitoring deployed'
+          Q3-2025:
+            status: 'completed'
+            description: 'Business dashboards and alerting configured'
+            details:
+              - '25 business dashboards created'
+              - 'PagerDuty alerting integrated'
+              - 'SLA monitoring operational'
+              - 'Support teams training completed'
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Advanced monitoring and alerting optimization'
+            details:
+              - 'Smart alerting with ML in progress'
+              - 'Real-time dashboards finalized'
+              - 'Slack/Teams integration completed'
+            progress: '90%'
+            metrics:
+              - 'Current uptime: 99.7%'
+              - 'Average MTTR: 12 minutes'
+              - 'False positive alerts: 8%'
+          Q1-2026:
+            status: 'planned'
+            description: 'Predictive monitoring and complete automation'
+            details:
+              - 'AI anomaly detection'
+              - 'Auto-healing for common incidents'
+              - 'Cost monitoring and optimization'
+            objectives:
+              - 'MTTR < 10 minutes'
+              - 'False positives < 5%'
+              - 'Uptime 99.95%'
+
+      - name: 'CI/CD Pipeline V2'
+        responsible: 'DevOps Team (Thomas R.)'
+        issue: 'https://github.com/company/infra/issues/103'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'GitLab CI + ArgoCD architecture finalized'
+            details:
+              - 'Migration from Jenkins completed'
+              - 'Standardized pipeline templates'
+              - 'Security scanning integrated'
+          Q3-2025:
+            status: 'planned'
+            description: 'Staging pipeline and automated tests'
+            details:
+              - 'Automated staging environment'
+              - 'E2E tests integrated to pipeline'
+              - 'Quality gates configured'
+          Q4-2025:
+            status: 'planned'
+            description: 'Production deployment and blue/green'
+            details:
+              - 'Blue/green deployment configured'
+              - 'Automatic rollback on failure'
+              - 'Performance testing integrated'
+            dependencies:
+              - 'Clever Cloud Migration (30% blocking)'
+          Q1-2026:
+            status: 'planned'
+            description: 'Optimized pipeline and self-healing'
+            details:
+              - 'Build time < 5 minutes'
+              - 'Zero-downtime deployments'
+              - 'Auto-scaling based on load'
+            objectives:
+              - 'Deployment frequency: 5x/day'
+              - 'Lead time < 2 hours'
+              - 'Change failure rate < 2%'
+
+  - name: 'Product & UX'
+    icon: '🎨'
+    projects:
+      - name: 'Complete UI/UX Redesign'
+        responsible: 'UX Team (Julie B.)'
+        issue: 'https://github.com/company/product/issues/201'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'Extensive user research and wireframes'
+            details:
+              - '150 user interviews conducted'
+              - 'Personas and user journeys defined'
+              - 'Low fidelity wireframes validated'
+              - 'Current UX audit completed'
+          Q3-2025:
+            status: 'completed'
+            description: 'High fidelity prototypes and user testing'
+            details:
+              - 'Design system V1 created'
+              - 'Interactive Figma prototypes'
+              - '50 user testing sessions'
+              - 'User satisfaction: 4.7/5'
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Frontend implementation and A/B testing'
+            details:
+              - 'React components development in progress'
+              - 'Progressive migration by screens'
+              - 'A/B testing on 20% users'
+            progress: '60%'
+            metrics:
+              - 'Engagement +28% on new screens'
+              - 'Time on task -22%'
+              - 'Support tickets -35%'
+          Q1-2026:
+            status: 'planned'
+            description: 'Complete deployment and optimization'
+            details:
+              - '100% user migration'
+              - 'Improved onboarding'
+              - 'Advanced UX analytics'
+            objectives:
+              - 'New UI adoption: 95%'
+              - 'NPS +15 points'
+              - 'Conversion +20%'
+
+      - name: 'Design System V2'
+        responsible: 'Design Team (Marc P.)'
+        issue: 'https://github.com/company/product/issues/202'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'Architecture and design tokens defined'
+            details:
+              - 'Existing components audit completed'
+              - 'Design tokens standardized'
+              - 'Storybook architecture configured'
+          Q3-2025:
+            status: 'planned'
+            description: 'React core components development'
+            details:
+              - '30 React components developed'
+              - 'Complete Storybook documentation'
+              - 'Automated visual tests'
+          Q4-2025:
+            status: 'planned'
+            description: 'Advanced components and team migration'
+            details:
+              - '50+ components available'
+              - 'Training for 15 developers'
+              - 'Progressive project migration'
+          Q1-2026:
+            status: 'planned'
+            description: 'Complete adoption and maintenance'
+            details:
+              - '100% new developments use DS'
+              - 'Versioning and breaking changes process'
+              - 'Team support established'
+            objectives:
+              - 'Consistency score: 98%'
+              - 'Dev velocity +35%'
+              - 'Design debt reduction 60%'
+
+  - name: 'Backend & API'
+    icon: '⚙️'
+    projects:
+      - name: 'Public API V3'
+        responsible: 'Backend Team (David L.)'
+        issue: 'https://github.com/company/backend/issues/301'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'OpenAPI 3.0 specifications and REST architecture'
+            details:
+              - 'Complete API specification'
+              - 'OAuth2 authentication designed'
+              - 'Rate limiting strategy defined'
+          Q3-2025:
+            status: 'completed'
+            description: 'Core endpoints implementation and security'
+            details:
+              - '15 critical endpoints developed'
+              - 'OAuth2 + JWT implemented'
+              - 'Rate limiting operational'
+              - '95% test coverage automated tests'
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Advanced endpoints and interactive documentation'
+            details:
+              - '25 additional endpoints in progress'
+              - 'Swagger UI documentation deployed'
+              - 'JavaScript and Python SDKs in development'
+            progress: '70%'
+          Q1-2026:
+            status: 'planned'
+            description: 'Public launch and partner onboarding'
+            details:
+              - 'Developer portal launched'
+              - '50+ partners onboarding'
+              - '99.9% SLA guaranteed'
+              - '24/7 developer support'
+            objectives:
+              - '1M+ API calls/day'
+              - 'API revenue: 100k€/month'
+              - 'Partner satisfaction: 4.5/5'
+
+      - name: 'Performance Optimization'
+        responsible: 'Backend + DBA (Sophie M.)'
+        issue: 'https://github.com/company/backend/issues/302'
+        quarters:
+          Q2-2025:
+            status: 'completed'
+            description: 'Profiling and bottlenecks identification'
+            details:
+              - 'New Relic APM deployed'
+              - 'Database slow queries identified'
+              - 'Memory leaks fixed'
+          Q3-2025:
+            status: 'completed'
+            description: 'Database optimization and indexing'
+            details:
+              - '50+ indexes created on critical tables'
+              - 'Query optimization -60% execution time'
+              - 'Connection pooling implemented'
+              - 'Read replicas configured'
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Redis cache and algorithms optimization'
+            details:
+              - 'Redis cluster deployed'
+              - 'Cache hit ratio: 85%'
+              - 'Critical algorithms rewritten'
+            progress: '85%'
+          Q1-2026:
+            status: 'planned'
+            description: 'Fine-tuning and predictive monitoring'
+            details:
+              - 'Smart auto-scaling'
+              - 'Predictive caching with ML'
+              - 'Performance budgets established'
+            objectives:
+              - 'p95 < 200ms on all endpoints'
+              - 'Infrastructure savings: 35k€/month'
+              - 'Zero performance regressions'
+
+# Global metrics and KPIs
+metrics:
+  kpis:
+    - 'Q4-2025 projects: 85% meet timeline'
+    - 'Timeline variance: <10% on 95% projects'
+    - 'Quality: 0 critical production bugs'
+    - 'Team satisfaction: >4.2/5'
+    - 'Turnover: <8%'
+  risks:
+    - 'Recruiting 8 senior profiles in progress'
+    - 'POCs architecture validation mandatory'
+    - '12% contingency for unexpected issues'

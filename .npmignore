@@ -1,0 +1,34 @@
+# Development files
+node_modules/
+.git/
+.github/
+.claude/
+
+# Build and test files
+dist/
+*.log
+.nyc_output
+coverage/
+
+# Configuration files
+.editorconfig
+.prettierignore
+.prettierrc
+eslint.config.js
+tsconfig.json
+
+# Development scripts
+scripts/
+
+# Test files
+tests/
+*.test.ts
+*.test.js
+
+# Documentation and examples
+data.yaml
+CLAUDE.md
+
+# Lock files
+bun.lock
+package-lock.json

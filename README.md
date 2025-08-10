@@ -2,9 +2,9 @@
 
 🗺️ **Professional HTML roadmap generator from YAML data**
 
-Transform your project roadmaps into beautiful, interactive visualizations. Built with modern TypeScript and powered by Bun for lightning-fast performance.
+Transform your project roadmap into beautiful, interactive visualizations. Built with modern TypeScript and powered by Bun for lightning-fast performance.
 
-[![CI/CD Pipeline](https://github.com/your-username/roadmap-gen/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/roadmap-gen/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/davlgd/roadmap-gen/actions/workflows/ci.yml/badge.svg)](https://github.com/davlgd/roadmap-gen/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/roadmap-gen.svg)](https://badge.fury.io/js/roadmap-gen)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -13,7 +13,7 @@ Transform your project roadmaps into beautiful, interactive visualizations. Buil
 - **🎨 Professional Design**: Dark theme with responsive layout and smooth animations
 - **📊 Rich Visualizations**: Interactive project tracking across quarters with status indicators
 - **⚡ Lightning Fast**: Built with Bun runtime for optimal performance
-- **🔧 Easy Configuration**: Simple YAML format for defining roadmaps
+- **🔧 Easy Configuration**: Simple YAML format for defining roadmap
 - **📱 Responsive**: Works perfectly on desktop, tablet, and mobile devices
 - **🚀 Dual Usage**: Both CLI tool and programmatic API
 - **🎯 Export Ready**: Generate standalone HTML files for easy sharing
@@ -41,6 +41,14 @@ npx roadmap-gen
 # Global installation
 npm install -g roadmap-gen
 roadmap-gen
+
+# Custom source file
+roadmap-gen --source ./my-roadmap.yaml
+roadmap-gen -s ./config/roadmap.yaml
+
+# Show help
+roadmap-gen --help
+roadmap-gen -h
 ```
 
 ### Programmatic API
@@ -55,12 +63,13 @@ const html = generateHTML(roadmap);
 writeFileSync('roadmap.html', html);
 
 // Or use the main build function
-await build();
+await build(); // Uses default roadmap.yaml
+await build('./custom-roadmap.yaml'); // Custom source file
 ```
 
 ## 📝 YAML Configuration
 
-Create a `data.yaml` file with your roadmap structure:
+Create a `roadmap.yaml` file with your roadmap structure (see `example.yml` for reference):
 
 ```yaml
 title: 'Product Roadmap 2025'
@@ -117,7 +126,7 @@ yarn add roadmap-gen
 
 ### Pre-compiled Binaries
 
-Download platform-specific binaries from the [releases page](https://github.com/your-username/roadmap-gen/releases):
+Download platform-specific binaries from the [releases page](https://github.com/davlgd/roadmap-gen/releases):
 
 - **Linux**: `roadmap-gen-linux-x64`, `roadmap-gen-linux-arm64`
 - **macOS**: `roadmap-gen-darwin-arm64`
@@ -126,7 +135,7 @@ Download platform-specific binaries from the [releases page](https://github.com/
 ### From Source
 
 ```bash
-git clone https://github.com/your-username/roadmap-gen.git
+git clone https://github.com/davlgd/roadmap-gen.git
 cd roadmap-gen
 bun install
 bun run build
@@ -166,7 +175,7 @@ src/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/roadmap-gen.git
+git clone https://github.com/davlgd/roadmap-gen.git
 cd roadmap-gen
 
 # Install dependencies
@@ -261,20 +270,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 - **[@bomb.sh/args](https://bomb.sh/docs/args/api)** - CLI argument parsing
 - **[ESLint](https://eslint.org/)** - Code quality and consistency
 
-## 📈 Roadmap
-
-Check out our [project roadmap](https://your-username.github.io/roadmap-gen/) built with roadmap-gen itself!
-
-Future features:
-
-- 🎨 Custom themes and color schemes
-- 📊 Advanced metrics and analytics
-- 🔗 Integration with project management tools
-- 📱 Mobile-first responsive improvements
-- 🌐 Multi-language support
-
 ---
 
 **Made with ❤️ and powered by Bun**
 
-[⭐ Star this repo](https://github.com/your-username/roadmap-gen) if you find it useful!
+[⭐ Star this repo](https://github.com/davlgd/roadmap-gen) if you find it useful!

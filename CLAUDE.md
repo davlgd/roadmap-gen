@@ -11,7 +11,7 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ## Project Details
 
 - **Name**: roadmap-gen
-- **Version**: 0.2.0
+- **Version**: 0.2.1
 - **Runtime**: Bun (primary), Node.js compatible
 - **Language**: TypeScript with strict configuration
 - **Architecture**: Modular design with separation of concerns

@@ -1,6 +1,6 @@
 {
   "name": "roadmap-gen",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "HTML roadmap generator from YAML data",
   "type": "module",
   "bin": {

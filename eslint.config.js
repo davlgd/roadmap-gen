@@ -51,7 +51,7 @@ export default [
     },
   },
   {
-    files: ['src/assets/**/*.js'],
+    files: ['themes/**/assets/**/*.js'],
     languageOptions: {
       globals: {
         document: 'readonly',

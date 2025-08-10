@@ -14,18 +14,28 @@ import type { RoadmapData, BuildStats } from './types.ts';
 /**
  * Copies static assets to the distribution directory
  */
-function copyAssets(): void {
+function copyAssets(templateDir: string = CONFIG.TEMPLATE_DIR, outputDir: string = CONFIG.OUTPUT_DIR): void {
+  // Determine the correct assets directory
+  let assetsDir: string;
+  if (templateDir === CONFIG.TEMPLATE_DIR) {
+    // Use default assets directory for default template
+    assetsDir = CONFIG.ASSETS_DIR;
+  } else {
+    // Use theme-specific assets directory
+    assetsDir = `${templateDir}/assets`;
+  }
+
   // CSS file
-  if (existsSync(`${CONFIG.ASSETS_DIR}/${CONFIG.CSS_FILE}`)) {
-    const css = readFileSync(`${CONFIG.ASSETS_DIR}/${CONFIG.CSS_FILE}`, 'utf8');
-    writeFileSync(`${CONFIG.OUTPUT_DIR}/${CONFIG.CSS_FILE}`, css);
+  if (existsSync(`${assetsDir}/${CONFIG.CSS_FILE}`)) {
+    const css = readFileSync(`${assetsDir}/${CONFIG.CSS_FILE}`, 'utf8');
+    writeFileSync(`${outputDir}/${CONFIG.CSS_FILE}`, css);
     console.log('📄 CSS copied');
   }
 
   // JavaScript file
-  if (existsSync(`${CONFIG.ASSETS_DIR}/${CONFIG.JS_FILE}`)) {
-    const js = readFileSync(`${CONFIG.ASSETS_DIR}/${CONFIG.JS_FILE}`, 'utf8');
-    writeFileSync(`${CONFIG.OUTPUT_DIR}/${CONFIG.JS_FILE}`, js);
+  if (existsSync(`${assetsDir}/${CONFIG.JS_FILE}`)) {
+    const js = readFileSync(`${assetsDir}/${CONFIG.JS_FILE}`, 'utf8');
+    writeFileSync(`${outputDir}/${CONFIG.JS_FILE}`, js);
     console.log('⚡ JS copied');
   }
 }
@@ -33,9 +43,9 @@ function copyAssets(): void {
 /**
  * Ensures the output directory exists, creates it if necessary
  */
-function ensureOutputDir(): void {
-  if (!existsSync(CONFIG.OUTPUT_DIR)) {
-    Bun.spawnSync(['mkdir', '-p', CONFIG.OUTPUT_DIR]);
+function ensureOutputDir(outputDir: string = CONFIG.OUTPUT_DIR): void {
+  if (!existsSync(outputDir)) {
+    Bun.spawnSync(['mkdir', '-p', outputDir]);
   }
 }
 
@@ -86,9 +96,9 @@ function processYamlData(yamlContent: string): RoadmapData {
 /**
  * Displays build statistics and roadmap information
  */
-function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats): void {
+function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats, outputDir: string = CONFIG.OUTPUT_DIR): void {
   console.log(`📊 Statistics: ${stats.categories} categories, ${stats.projects} projects, ${stats.quarters} quarters`);
-  console.log(`✅ Roadmap generated: ${CONFIG.OUTPUT_DIR}/${CONFIG.OUTPUT_FILE}`);
+  console.log(`✅ Roadmap generated: ${outputDir}/${CONFIG.OUTPUT_FILE}`);
   console.log(`📅 Quarters: ${roadmap.quarters.join(', ')}`);
 
   if (roadmap.next_quarters) {
@@ -103,7 +113,11 @@ function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats): void {
  *
  * @throws Error if build process fails
  */
-async function build(sourceFile: string = CONFIG.INPUT_FILE): Promise<void> {
+async function build(
+  sourceFile: string = CONFIG.INPUT_FILE,
+  templateDir: string = CONFIG.TEMPLATE_DIR,
+  outputDir: string = CONFIG.OUTPUT_DIR
+): Promise<void> {
   try {
     console.log('🚀 Building roadmap…');
 
@@ -114,18 +128,18 @@ async function build(sourceFile: string = CONFIG.INPUT_FILE): Promise<void> {
     const roadmap = processYamlData(yamlContent);
 
     // Prepare output and generate content
-    ensureOutputDir();
+    ensureOutputDir(outputDir);
     console.log('🎨 Generating HTML…');
     const html = generateHTML(roadmap);
 
     // Output files and display results
-    copyAssets();
-    const outputPath = `${CONFIG.OUTPUT_DIR}/${CONFIG.OUTPUT_FILE}`;
+    copyAssets(templateDir, outputDir);
+    const outputPath = `${outputDir}/${CONFIG.OUTPUT_FILE}`;
     writeFileSync(outputPath, html, 'utf8');
 
     const htmlSize = (html.length / CONFIG.BYTES_TO_KB).toFixed(1);
     const stats = calculateStats(roadmap, htmlSize);
-    displayBuildInfo(roadmap, stats);
+    displayBuildInfo(roadmap, stats, outputDir);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Build error:', errorMessage);

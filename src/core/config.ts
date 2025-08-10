@@ -12,8 +12,9 @@ export const CONFIG = {
   OUTPUT_FILE: 'index.html',
 
   // Asset paths
-  ASSETS_DIR: 'src/assets',
-  TEMPLATES_DIR: 'templates',
+  ASSETS_DIR: 'templates/assets',
+  TEMPLATE_DIR: 'templates',
+  TEMPLATES_DIR: 'templates', // Legacy compatibility
   CSS_FILE: 'styles.css',
   JS_FILE: 'script.js',
 

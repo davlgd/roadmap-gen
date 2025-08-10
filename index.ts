@@ -31,12 +31,18 @@ Usage:
 
 Options:
   -s, --source <file>    Source YAML file path (default: ${CONFIG.INPUT_FILE})
+  -t, --template <dir>   Template directory path (default: ${CONFIG.TEMPLATE_DIR})
+  -o, --output <dir>     Output directory path (default: ${CONFIG.OUTPUT_DIR})
   -h, --help            Show this help message
 
 Examples:
   roadmap-gen                           # Use default ${CONFIG.INPUT_FILE}
   roadmap-gen --source my-roadmap.yaml  # Use custom file
   roadmap-gen -s ./config/roadmap.yaml  # Use custom file (short)
+  roadmap-gen --template ./themes/corporate  # Use custom template
+  roadmap-gen -t ./themes/minimal -s data.yml  # Custom template and source
+  roadmap-gen -o ./public               # Output to public directory
+  roadmap-gen -t themes/executive -o reports  # Custom template and output
 
 Documentation: https://github.com/davlgd/roadmap-gen
 `);
@@ -46,10 +52,12 @@ Documentation: https://github.com/davlgd/roadmap-gen
 if (import.meta.main) {
   const args = parse(process.argv, {
     boolean: ['help', 'h'],
-    string: ['source', 's'],
+    string: ['source', 's', 'template', 't', 'output', 'o'],
     alias: {
       h: 'help',
       s: 'source',
+      t: 'template',
+      o: 'output',
     },
   });
 
@@ -59,7 +67,9 @@ if (import.meta.main) {
   }
 
   const sourceFile = args.source || CONFIG.INPUT_FILE;
-  await build(sourceFile);
+  const templateDir = args.template || CONFIG.TEMPLATE_DIR;
+  const outputDir = args.output || CONFIG.OUTPUT_DIR;
+  await build(sourceFile, templateDir, outputDir);
 }
 
 // Export main function for programmatic use

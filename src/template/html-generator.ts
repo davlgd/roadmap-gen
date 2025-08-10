@@ -34,13 +34,22 @@ export function generateHTML(roadmap: RoadmapData): string {
 /**
  * Generates HTML for a quarter cell in the project table
  */
-function generateQuarterCell(quarterData: QuarterData | undefined, quarter: string, isNext: boolean): string {
+function generateQuarterCell(
+  quarterData: QuarterData | undefined,
+  quarter: string,
+  isNext: boolean,
+  templateDir?: string
+): string {
   const periodClass = isNext ? 'next-quarter' : 'past-quarter';
 
   if (!quarterData) {
-    return processTemplate('quarter-cell-empty', {
-      periodClass,
-    });
+    return processTemplate(
+      'quarter-cell-empty',
+      {
+        periodClass,
+      },
+      templateDir
+    );
   }
 
   let statusInfo = STATUS_MAP[quarterData.status];
@@ -50,13 +59,17 @@ function generateQuarterCell(quarterData: QuarterData | undefined, quarter: stri
   }
   const detailsHTML = buildDetailsHTML(quarterData);
 
-  return processTemplate('quarter-cell', {
-    periodClass,
-    statusClass: statusInfo.class,
-    statusText: statusInfo.text,
-    description: escapeHtml(quarterData.description || ''),
-    detailsHTML,
-  });
+  return processTemplate(
+    'quarter-cell',
+    {
+      periodClass,
+      statusClass: statusInfo.class,
+      statusText: statusInfo.text,
+      description: escapeHtml(quarterData.description || ''),
+      detailsHTML,
+    },
+    templateDir
+  );
 }
 
 /**

@@ -17,17 +17,18 @@ const MAX_CACHE_SIZE = 100; // Maximum number of templates to cache
  * Loads a template file from the templates directory
  *
  * @param templateName - Name of the template file (without .html extension)
+ * @param templateDir - Directory containing templates (optional)
  * @returns Template content as string
  */
-export function loadTemplate(templateName: string): string {
-  const cacheKey = templateName;
+export function loadTemplate(templateName: string, templateDir: string = CONFIG.TEMPLATE_DIR): string {
+  const cacheKey = `${templateDir}:${templateName}`;
 
   const cached = templateCache.get(cacheKey);
   if (cached !== undefined) {
     return cached;
   }
 
-  const templatePath = join(CONFIG.TEMPLATES_DIR, `${templateName}.html`);
+  const templatePath = join(templateDir, `${templateName}.html`);
 
   try {
     const content = readFileSync(templatePath, 'utf-8');
@@ -74,10 +75,15 @@ export function replaceTemplateVariables(template: string, variables: Record<str
  *
  * @param templateName - Name of the template file
  * @param variables - Variables to replace in template
+ * @param templateDir - Directory containing templates (optional)
  * @returns Processed template content
  */
-export function processTemplate(templateName: string, variables: Record<string, string> = {}): string {
-  const template = loadTemplate(templateName);
+export function processTemplate(
+  templateName: string,
+  variables: Record<string, string> = {},
+  templateDir?: string
+): string {
+  const template = loadTemplate(templateName, templateDir);
   return replaceTemplateVariables(template, variables);
 }
 

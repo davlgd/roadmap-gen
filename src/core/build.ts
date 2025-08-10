@@ -75,19 +75,21 @@ function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats): void {
  *
  * @throws Error if build process fails
  */
-async function build(): Promise<void> {
+async function build(sourceFile: string = CONFIG.INPUT_FILE): Promise<void> {
   try {
     console.log('🚀 Building roadmap…');
 
     // Check source file existence
-    if (!existsSync(CONFIG.INPUT_FILE)) {
-      console.error(`❌ Source file not found: ${CONFIG.INPUT_FILE}`);
+    if (!existsSync(sourceFile)) {
+      console.error(`❌ Source file not found: ${sourceFile}`);
+      console.error('💡 Use --source <file> or -s <file> to specify a different YAML file');
+      console.error(`📋 See ${CONFIG.EXAMPLE_FILE} for reference format`);
       process.exit(1);
     }
 
     // Read and parse YAML data
-    const yamlContent = readFileSync(CONFIG.INPUT_FILE, 'utf8');
     console.log('📖 Reading data…');
+    const yamlContent = readFileSync(sourceFile, 'utf8');
     const roadmap = parseYAML(yamlContent);
 
     if (!roadmap) {

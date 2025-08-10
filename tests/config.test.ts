@@ -64,7 +64,9 @@ describe('CONFIG', () => {
 
 describe('PERIOD_DETECTION', () => {
   test('should have valid quarter definitions', () => {
-    expect(PERIOD_DETECTION.CURRENT_YEAR).toBeGreaterThan(2020);
+    const MIN_VALID_YEAR = 2020;
+
+    expect(PERIOD_DETECTION.CURRENT_YEAR).toBeGreaterThan(MIN_VALID_YEAR);
     expect(PERIOD_DETECTION.QUARTERS.Q1).toEqual({ start: 1, end: 3 });
     expect(PERIOD_DETECTION.QUARTERS.Q2).toEqual({ start: 4, end: 6 });
     expect(PERIOD_DETECTION.QUARTERS.Q3).toEqual({ start: 7, end: 9 });

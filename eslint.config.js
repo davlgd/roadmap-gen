@@ -51,10 +51,20 @@ export default [
     },
   },
   {
+    files: ['src/assets/**/*.js'],
+    languageOptions: {
+      globals: {
+        document: 'readonly',
+        window: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
+  {
     files: ['tests/**/*.ts'],
     rules: {
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      'max-lines-per-function': 'off',
+      'max-lines-per-function': ['warn', 150],
+      'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2, 3, 4, 5, 200, 404, 500, 2020, 25] }],
     },
   },
   {

@@ -126,16 +126,21 @@ describe('Type definitions', () => {
   });
 
   test('BuildStats should track build metrics', () => {
+    const TEST_CATEGORIES_COUNT = 5;
+    const TEST_PROJECTS_COUNT = 25;
+    const TEST_QUARTERS_COUNT = 4;
+    const TEST_HTML_SIZE = '124.5';
+
     const stats: BuildStats = {
-      categories: 5,
-      projects: 25,
-      quarters: 4,
-      htmlSize: '124.5',
+      categories: TEST_CATEGORIES_COUNT,
+      projects: TEST_PROJECTS_COUNT,
+      quarters: TEST_QUARTERS_COUNT,
+      htmlSize: TEST_HTML_SIZE,
     };
 
-    expect(stats.categories).toBe(5);
-    expect(stats.projects).toBe(25);
-    expect(stats.quarters).toBe(4);
-    expect(stats.htmlSize).toBe('124.5');
+    expect(stats.categories).toBe(TEST_CATEGORIES_COUNT);
+    expect(stats.projects).toBe(TEST_PROJECTS_COUNT);
+    expect(stats.quarters).toBe(TEST_QUARTERS_COUNT);
+    expect(stats.htmlSize).toBe(TEST_HTML_SIZE);
   });
 });

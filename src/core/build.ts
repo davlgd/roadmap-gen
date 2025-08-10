@@ -56,6 +56,34 @@ function calculateStats(roadmap: RoadmapData, htmlSize: string): BuildStats {
 }
 
 /**
+ * Validates source file existence and provides helpful error messages
+ */
+function validateSourceFile(sourceFile: string): void {
+  if (!existsSync(sourceFile)) {
+    console.error(`❌ Source file not found: ${sourceFile}`);
+    console.error('💡 Use --source <file> or -s <file> to specify a different YAML file');
+    console.error(`📋 See ${CONFIG.EXAMPLE_FILE} for reference format`);
+    process.exit(1);
+  }
+}
+
+/**
+ * Processes YAML content and returns validated roadmap data
+ */
+function processYamlData(yamlContent: string): RoadmapData {
+  const roadmap = parseYAML(yamlContent);
+
+  if (!roadmap) {
+    throw new Error('YAML file is empty or invalid');
+  }
+
+  console.log('✅ Validating data…');
+  validateRoadmap(roadmap);
+
+  return roadmap;
+}
+
+/**
  * Displays build statistics and roadmap information
  */
 function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats): void {
@@ -79,42 +107,22 @@ async function build(sourceFile: string = CONFIG.INPUT_FILE): Promise<void> {
   try {
     console.log('🚀 Building roadmap…');
 
-    // Check source file existence
-    if (!existsSync(sourceFile)) {
-      console.error(`❌ Source file not found: ${sourceFile}`);
-      console.error('💡 Use --source <file> or -s <file> to specify a different YAML file');
-      console.error(`📋 See ${CONFIG.EXAMPLE_FILE} for reference format`);
-      process.exit(1);
-    }
-
-    // Read and parse YAML data
+    // Validate source file and process data
+    validateSourceFile(sourceFile);
     console.log('📖 Reading data…');
     const yamlContent = readFileSync(sourceFile, 'utf8');
-    const roadmap = parseYAML(yamlContent);
+    const roadmap = processYamlData(yamlContent);
 
-    if (!roadmap) {
-      throw new Error('YAML file is empty or invalid');
-    }
-
-    // Validate roadmap data structure
-    console.log('✅ Validating data…');
-    validateRoadmap(roadmap);
-
-    // Prepare output directory
+    // Prepare output and generate content
     ensureOutputDir();
-
-    // Generate HTML content
     console.log('🎨 Generating HTML…');
     const html = generateHTML(roadmap);
 
-    // Copy static assets
+    // Output files and display results
     copyAssets();
-
-    // Write HTML output file
     const outputPath = `${CONFIG.OUTPUT_DIR}/${CONFIG.OUTPUT_FILE}`;
     writeFileSync(outputPath, html, 'utf8');
 
-    // Calculate and display build statistics
     const htmlSize = (html.length / CONFIG.BYTES_TO_KB).toFixed(1);
     const stats = calculateStats(roadmap, htmlSize);
     displayBuildInfo(roadmap, stats);

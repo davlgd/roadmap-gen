@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,9 +17,6 @@
     "noImplicitOverride": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
-    "declaration": true,
-    "outDir": "dist",
-    "rootDir": ".",
     "resolveJsonModule": true,
     "types": ["bun-types"]
   },

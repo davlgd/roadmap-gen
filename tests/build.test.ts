@@ -3,8 +3,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test';
-import { existsSync, writeFileSync, rmSync, mkdirSync } from 'fs';
-import { build } from '../src/core/build.ts';
+import { existsSync, writeFileSync, rmSync } from 'fs';
 
 describe('build function', () => {
   const testDataFile = 'test-data.yaml';
@@ -47,14 +46,8 @@ categories:
     }
   });
 
-  test('should fail when data file does not exist', async () => {
-    // Mock CONFIG to use test file
-    const originalConfig = await import('../src/core/config.ts');
-    const mockConfig = {
-      ...originalConfig.CONFIG,
-      INPUT_FILE: 'nonexistent.yaml',
-    };
-
+  test('should fail when data file does not exist', () => {
+    // Test that nonexistent file returns false from existsSync
     expect(existsSync('nonexistent.yaml')).toBe(false);
   });
 
@@ -82,9 +75,7 @@ categories: []
   });
 
   test('should handle YAML with metrics', () => {
-    const yamlWithMetrics =
-      validYamlData +
-      `
+    const yamlWithMetrics = `${validYamlData}
 metrics:
   kpis:
     - "Coverage > 80%"

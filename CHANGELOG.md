@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2025-08-10
+
+### Added
+
+- **Workflows**: Composite action for Bun setup to reduce code duplication across workflows
+
+### Changed
+
+- **CI/CD**: Optimized workflow architecture - CI runs on push/PR, Build validates and builds on release, Publish depends on successful Build
+- **Validation**: Moved validation logic out of composite action to individual workflows for better control
+
+### Fixed
+
+- **TypeScript**: Resolved strict mode errors with proper null safety and optional chaining
+- **Tests**: Enhanced test robustness with safe navigation operators
+- **Workflows**: Fixed softprops/action-gh-release requiring proper release context
+- **Code Quality**: Improved regex validation with capture group verification
+
 ## [0.2.1] - 2025-08-10
 
 ### Fixed

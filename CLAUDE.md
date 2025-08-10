@@ -11,7 +11,7 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ## Project Details
 
 - **Name**: roadmap-gen
-- **Version**: 0.2.1
+- **Version**: 0.2.2
 - **Runtime**: Bun (primary), Node.js compatible
 - **Language**: TypeScript with strict configuration
 - **Architecture**: Modular design with separation of concerns
@@ -374,7 +374,7 @@ The project includes automated checks to ensure compliance:
 - **ESLint rule**: `eol-last` enforces final newlines in TypeScript files
 - **EditorConfig**: Automatic validation with `editorconfig-checker`
 - **Prettier**: Automatic formatting with `prettier --write`
-- **CI Pipeline**: GitHub Actions with sequential CI → Build/Publish workflow
+- **CI Pipeline**: GitHub Actions with release-triggered Build/Publish workflows
 - **Convenience commands**:
   - `bun run check`: Quality validation (lint + format + test)
   - `bun run validate`: Full validation (quality + functional test with example.yml)

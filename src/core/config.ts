@@ -7,6 +7,7 @@ import type { StatusInfo, ProjectStatus } from './types.ts';
 export const CONFIG = {
   // File paths
   INPUT_FILE: 'data.yaml',
+  EXAMPLE_FILE: 'example.yml',
   OUTPUT_DIR: 'dist',
   OUTPUT_FILE: 'index.html',
 

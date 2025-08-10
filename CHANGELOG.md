@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-08-10
+
+### Added
+
+- 🎛️ **CLI Arguments Support**: `--source` / `-s` option to specify custom YAML files
+- 📋 **Help Command**: `--help` / `-h` displays comprehensive usage information
+- 🎨 **Typography Enhancement**: Replaced `...` with proper ellipse character `…`
+- 📄 **Example File**: Repository example moved to `example.yml` for better structure
+- ⚙️ **Configuration**: Use constants instead of hard coded values throughout codebase
+- 🔧 **Dependencies**: Added `@bomb.sh/args` for CLI parsing and TypeScript for compilation checks
+
+### Changed
+
+- **Breaking**: Default source file is now `roadmap.yaml` instead of `data.yaml`
+- **CLI**: Enhanced error messages with helpful suggestions for `--source` option
+- **API**: `build()` function now accepts optional `sourceFile` parameter
+- **CI/CD**: Refactored GitHub Actions workflows with sequential CI → Build/Publish architecture
+- **Scripts**: Reorganized npm scripts - `build` for roadmap generation, `validate` for CI
+
+### Fixed
+
+- 🔧 **ESLint Configuration**: Improved ESLint rules without disabling checks unnecessarily
+- 🏗️ **TypeScript Configuration**: Fixed `allowImportingTsExtensions` compatibility with `noEmit`
+- ✨ **Code Style**: Enhanced build function modularity and removed trailing spaces
+- 🧪 **Test Improvements**: Better test structure with named constants instead of magic numbers
+
 ## [0.1.0] - 2025-01-14
 
 ### Added

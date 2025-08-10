@@ -1,6 +1,6 @@
 {
   "name": "roadmap-gen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "HTML roadmap generator from YAML data",
   "type": "module",
   "bin": {
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "bun run index.ts",
-    "dev": "bun run index.ts && bun run serve",
+    "dev": "bun run build && bun run serve",
     "serve": "bun --hot serve dist",
     "clean": "rm -rf dist/*",
     "test": "bun test",
@@ -29,7 +29,7 @@
     "typecheck": "tsc --noEmit --skipLibCheck",
     "check": "bun run lint && bun run format:check && bun test",
     "fix": "bun run lint:fix && bun run format",
-    "validate": "bun run check && bun run build"
+    "validate": "bun run check && bun run index.ts -s example.yml"
   },
   "dependencies": {
     "@bomb.sh/args": "^0.3.1",

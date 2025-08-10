@@ -11,7 +11,7 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ## Project Details
 
 - **Name**: roadmap-gen
-- **Version**: 0.1.0
+- **Version**: 0.2.0
 - **Runtime**: Bun (primary), Node.js compatible
 - **Language**: TypeScript with strict configuration
 - **Architecture**: Modular design with separation of concerns
@@ -21,11 +21,20 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ### CLI Usage
 
 ```bash
-# Direct usage with Bun
+# Direct usage with Bun (recommended)
 bunx roadmap-gen
+
+# With custom source file
+bunx roadmap-gen --source ./my-roadmap.yaml
+bunx roadmap-gen -s ./config/roadmap.yaml
+
+# Show help
+bunx roadmap-gen --help
+bunx roadmap-gen -h
 
 # Or with npm
 npx roadmap-gen
+npx roadmap-gen --source ./my-roadmap.yaml
 
 # Local installation
 npm install roadmap-gen
@@ -42,12 +51,14 @@ import { build, generateHTML, parseYAML, CONFIG } from 'roadmap-gen';
 const { build, generateHTML, parseYAML, CONFIG } = require('roadmap-gen');
 
 // Use individual functions
-const yamlContent = readFileSync('data.yaml', 'utf8');
+const yamlContent = readFileSync('roadmap.yaml', 'utf8');
 const roadmap = parseYAML(yamlContent);
 const html = generateHTML(roadmap);
+writeFileSync('roadmap.html', html);
 
 // Or use the main build function
-await build();
+await build(); // Uses default roadmap.yaml
+await build('./custom-roadmap.yaml'); // Custom source file
 ```
 
 ### Local Development
@@ -56,8 +67,9 @@ await build();
 # Install dependencies
 bun install
 
-# Build roadmap from data.yaml
+# Build roadmap (requires roadmap.yaml or use -s flag)
 bun run build
+bun run build -s example.yml
 
 # Development mode (build + serve)
 bun run dev
@@ -65,7 +77,10 @@ bun run dev
 # Run tests
 bun test
 
-# Code quality
+# Code quality and validation
+bun run check           # Lint + format + tests
+bun run validate        # Full validation (check + functional test)
+bun run typecheck       # TypeScript compilation check (optional)
 bun run lint
 bun run lint:fix
 
@@ -113,7 +128,7 @@ tests/               # Comprehensive test suite (65+ tests)
 ├── template-loader.test.ts # Template loading testing
 └── types.test.ts    # Type definition validation
 
-data.yaml            # Sample roadmap data (YAML format)
+example.yml          # Sample roadmap data (YAML format)
 tsconfig.json        # TypeScript configuration
 package.json         # Package configuration with binary
 .gitignore          # Git ignore patterns
@@ -268,11 +283,15 @@ Features:
 **Runtime**:
 
 - `js-yaml`: YAML parsing library
+- `@bomb.sh/args`: CLI argument parsing
 
 **Development**:
 
 - Bun runtime for building and testing
-- TypeScript compiler with strict configuration
+- TypeScript compiler with strict configuration and optional type checking
+- ESLint with comprehensive rules (no disabled checks)
+- Prettier for consistent formatting
+- EditorConfig for cross-editor consistency
 
 ## Security Features
 
@@ -337,13 +356,14 @@ To minimize token consumption and maximize efficiency:
 
 1. **Make changes** using appropriate tools
 2. **Run quality checks** with `bun run check` (linting, formatting, tests)
-3. **Run full validation** with `bun run validate` (quality checks + build test)
+3. **Run full validation** with `bun run validate` (quality checks + functional test with example.yml)
 4. **Or run individual checks**:
 
+- TypeScript compilation: `bun run typecheck` (optional, strict)
 - EditorConfig compliance: `editorconfig-checker`
 - Code quality: `bun run lint`
 - Tests: `bun test`
-- Build: `bun run build`
+- Build with example: `bun run build -s example.yml`
 
 5. **Only then report completion**
 
@@ -354,10 +374,11 @@ The project includes automated checks to ensure compliance:
 - **ESLint rule**: `eol-last` enforces final newlines in TypeScript files
 - **EditorConfig**: Automatic validation with `editorconfig-checker`
 - **Prettier**: Automatic formatting with `prettier --write`
-- **CI Pipeline**: GitHub Actions fails if any files are missing newlines
+- **CI Pipeline**: GitHub Actions with sequential CI → Build/Publish workflow
 - **Convenience commands**:
   - `bun run check`: Quality validation (lint + format + test)
-  - `bun run validate`: Full validation (quality + build test)
-  - `bun run fix`: Automatic fixes (newlines + lint auto-fix)
+  - `bun run validate`: Full validation (quality + functional test with example.yml)
+  - `bun run typecheck`: TypeScript strict compilation check (optional)
+  - `bun run fix`: Automatic fixes (formatting + lint auto-fix)
 
 This approach ensures changes are validated locally and reduces back-and-forth iterations.

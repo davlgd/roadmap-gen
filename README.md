@@ -168,7 +168,7 @@ src/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) >= 1.2.19
+- [Bun](https://bun.sh/) >= 1.2
 - Node.js >= 18 (for compatibility)
 
 ### Setup
@@ -269,6 +269,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 - **[js-yaml](https://github.com/nodeca/js-yaml)** - YAML parsing
 - **[@bomb.sh/args](https://bomb.sh/docs/args/api)** - CLI argument parsing
 - **[ESLint](https://eslint.org/)** - Code quality and consistency
+- **[Prettier](https://prettier.io/)** - Code formatting
+- **[EditorConfig](https://editorconfig.org/)** - Consistent coding styles
 
 ---
 

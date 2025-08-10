@@ -258,6 +258,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 - **[Bun](https://bun.sh/)** - Fast JavaScript runtime and toolkit
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
 - **[js-yaml](https://github.com/nodeca/js-yaml)** - YAML parsing
+- **[@bomb.sh/args](https://bomb.sh/docs/args/api)** - CLI argument parsing
 - **[ESLint](https://eslint.org/)** - Code quality and consistency
 
 ## 📈 Roadmap

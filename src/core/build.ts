@@ -77,7 +77,7 @@ function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats): void {
  */
 async function build(): Promise<void> {
   try {
-    console.log('🚀 Building roadmap...');
+    console.log('🚀 Building roadmap…');
 
     // Check source file existence
     if (!existsSync(CONFIG.INPUT_FILE)) {
@@ -86,8 +86,8 @@ async function build(): Promise<void> {
     }
 
     // Read and parse YAML data
-    console.log('📖 Reading data...');
     const yamlContent = readFileSync(CONFIG.INPUT_FILE, 'utf8');
+    console.log('📖 Reading data…');
     const roadmap = parseYAML(yamlContent);
 
     if (!roadmap) {
@@ -95,14 +95,14 @@ async function build(): Promise<void> {
     }
 
     // Validate roadmap data structure
-    console.log('✅ Validating data...');
+    console.log('✅ Validating data…');
     validateRoadmap(roadmap);
 
     // Prepare output directory
     ensureOutputDir();
 
     // Generate HTML content
-    console.log('🎨 Generating HTML...');
+    console.log('🎨 Generating HTML…');
     const html = generateHTML(roadmap);
 
     // Copy static assets

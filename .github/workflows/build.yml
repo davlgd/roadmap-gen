@@ -1,9 +1,8 @@
 name: Build Binaries
 
 on:
-  workflow_run:
-    workflows: ['CI']
-    types: [completed]
+  release:
+    types: [created]
   workflow_dispatch:
 
 permissions:
@@ -11,9 +10,22 @@ permissions:
   contents: write
 
 jobs:
+  validate:
+    name: Validate Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Run code validation
+        run: bun run validate
+
   build-binaries:
     name: Build ${{ matrix.target }}
-    if: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'release') || github.event_name == 'workflow_dispatch' }}
+    needs: validate
     strategy:
       matrix:
         include:
@@ -31,10 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+        uses: ./.github/actions/setup-bun
 
       - name: Build binary
         run: bun build index.ts --compile --target=bun-${{ matrix.target }} --outfile=roadmap-gen-${{ matrix.target }}${{ matrix.os == 'windows-latest' && '.exe' || '' }} --minify --sourcemap

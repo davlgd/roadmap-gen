@@ -123,26 +123,40 @@ function generateProjectRow(project: Project, quarters: string[], nextQuarters?:
     })
     .join('');
 
+  const nameHTML = buildProjectNameHTML(project);
+
   return processTemplate('project-row', {
-    name: escapeHtml(project.name),
+    nameHTML,
     infoHTML,
     quartersHTML,
   });
 }
 
 /**
- * Builds the project information HTML (responsible, issue link)
+ * Builds the project name HTML with optional issue link
+ */
+function buildProjectNameHTML(project: Project): string {
+  const projectName = escapeHtml(project.name);
+
+  if (project.issue) {
+    const safeUrl = sanitizeUrl(project.issue);
+    return (
+      `<a href="${safeUrl}" target="_blank" class="project-link">${projectName} ` +
+      '<span class="issue-arrow">↗</span></a>'
+    );
+  }
+
+  return projectName;
+}
+
+/**
+ * Builds the project information HTML (responsible only)
  */
 function buildProjectInfoHTML(project: Project): string {
   const infoParts: string[] = [];
 
   if (project.responsible) {
     infoParts.push(`<strong>Responsible:</strong> ${escapeHtml(project.responsible)}`);
-  }
-
-  if (project.issue) {
-    const safeUrl = sanitizeUrl(project.issue);
-    infoParts.push(`<strong>Issue:</strong> <a href="${safeUrl}" target="_blank" class="issue-link">↗</a>`);
   }
 
   return infoParts.join(' | ');
@@ -195,8 +209,8 @@ function generateMetricsSection(metrics?: RoadmapData['metrics']): string {
 function generateKPIsSection(kpis?: string[]): string {
   if (!kpis) return '';
 
-  const kpisItems = generateListItems(kpis, 'kpi-item');
-  return generateSection('KPIs', kpisItems, 'kpis-list');
+  const kpisItems = generateListItems(kpis, 'kpi-item', '• ');
+  return generateSection('KPIs & Metrics', kpisItems, 'kpis-list');
 }
 
 /**

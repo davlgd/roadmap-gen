@@ -23,6 +23,23 @@ describe('template-loader', () => {
       expect(template).toContain('{{header}}');
     });
 
+    test('should load template from custom template directory', () => {
+      const template = loadTemplate('main', 'themes/compact');
+      expect(template).toContain('<!doctype html>');
+      expect(template).toContain('{{title}}');
+      expect(template).toContain('{{header}}');
+    });
+
+    test('should cache templates by templateDir', () => {
+      const template1 = loadTemplate('header', 'themes/compact');
+      const template2 = loadTemplate('header', 'themes/compact');
+      expect(template1).toBe(template2);
+
+      // Different template directories should have separate cache entries
+      const template3 = loadTemplate('header', 'themes/timeline');
+      expect(template1).toBe(template2); // Same cache entry
+    });
+
     test('should cache templates for performance', () => {
       const template1 = loadTemplate('header');
       const template2 = loadTemplate('header');
@@ -31,6 +48,10 @@ describe('template-loader', () => {
 
     test('should throw error for non-existent template', () => {
       expect(() => loadTemplate('non-existent')).toThrow('Failed to load template');
+    });
+
+    test('should throw error for non-existent template directory', () => {
+      expect(() => loadTemplate('main', 'non-existent-dir')).toThrow('Failed to load template');
     });
   });
 

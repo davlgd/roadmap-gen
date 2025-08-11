@@ -2,9 +2,10 @@
  * Template loader for HTML template files
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { CONFIG } from '../core/config.ts';
+import { getTemplate } from '../core/embedded-assets.ts';
 
 /**
  * Template cache to avoid repeated file reads
@@ -30,21 +31,36 @@ export function loadTemplate(templateName: string, templateDir: string = CONFIG.
 
   const templatePath = join(templateDir, `${templateName}.html`);
 
-  try {
-    const content = readFileSync(templatePath, 'utf-8');
+  let content: string;
 
-    // Limit cache size to prevent memory issues
-    if (templateCache.size >= MAX_CACHE_SIZE) {
-      const firstKey = templateCache.keys().next().value;
-      if (firstKey) templateCache.delete(firstKey);
+  // Try to load from external file first
+  if (existsSync(templatePath)) {
+    try {
+      content = readFileSync(templatePath, 'utf-8');
+    } catch (error) {
+      // Fallback to embedded template
+      content = getTemplate(templateName);
+      if (!content) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`Failed to load template "${templateName}": ${message}`);
+      }
     }
-
-    templateCache.set(cacheKey, content);
-    return content;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    throw new Error(`Failed to load template "${templateName}": ${message}`);
+  } else {
+    // Use embedded template
+    content = getTemplate(templateName);
+    if (!content) {
+      throw new Error(`Template not found: "${templateName}" (no embedded fallback available)`);
+    }
   }
+
+  // Limit cache size to prevent memory issues
+  if (templateCache.size >= MAX_CACHE_SIZE) {
+    const firstKey = templateCache.keys().next().value;
+    if (firstKey) templateCache.delete(firstKey);
+  }
+
+  templateCache.set(cacheKey, content);
+  return content;
 }
 
 /**

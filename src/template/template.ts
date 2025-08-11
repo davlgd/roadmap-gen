@@ -41,7 +41,9 @@ function generateHeaderHTML(roadmap: RoadmapData): string {
  * Generates the legend section HTML
  */
 function generateLegendHTML(nextQuartersText: string): string {
+  const nextQuartersInfo = nextQuartersText ? `Next quarters: ${nextQuartersText}` : '';
+
   return processTemplate('legend', {
-    nextQuarters: nextQuartersText,
+    nextQuartersInfo,
   });
 }

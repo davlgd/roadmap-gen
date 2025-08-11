@@ -6,14 +6,7 @@ import type { RoadmapData, Project, Category, QuarterData } from '../core/types.
 import { STATUS_MAP } from '../core/config.ts';
 import { generateHTMLTemplate } from './template.ts';
 import { processTemplate } from './template-loader.ts';
-import {
-  generateListItems,
-  generateSection,
-  createInfoSection,
-  createInfoList,
-  escapeHtml,
-  sanitizeUrl,
-} from './html-utils.ts';
+import { generateListItems, createInfoSection, createInfoList, escapeHtml, sanitizeUrl } from './html-utils.ts';
 
 /**
  * Generates complete HTML for the roadmap
@@ -211,8 +204,8 @@ function generateMetricsSection(metrics?: RoadmapData['metrics']): string {
   const risksHTML = generateRisksSection(metrics.risks);
 
   return processTemplate('metrics', {
-    kpisHTML,
-    risksHTML,
+    kpisSection: kpisHTML,
+    risksSection: risksHTML,
   });
 }
 
@@ -222,8 +215,7 @@ function generateMetricsSection(metrics?: RoadmapData['metrics']): string {
 function generateKPIsSection(kpis?: string[]): string {
   if (!kpis) return '';
 
-  const kpisItems = generateListItems(kpis, 'kpi-item', '• ');
-  return generateSection('KPIs & Metrics', kpisItems, 'kpis-list');
+  return generateListItems(kpis, 'kpi-item', '• ');
 }
 
 /**
@@ -232,6 +224,5 @@ function generateKPIsSection(kpis?: string[]): string {
 function generateRisksSection(risks?: string[]): string {
   if (!risks) return '';
 
-  const risksItems = generateListItems(risks, 'risk-item', '• ');
-  return generateSection('Risks & Mitigations', risksItems, 'risks-section');
+  return generateListItems(risks, 'risk-item', '• ');
 }

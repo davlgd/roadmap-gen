@@ -9,35 +9,32 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { parseYAML, validateRoadmap } from '../data/parser.ts';
 import { generateHTML } from '../template/html-generator.ts';
 import { CONFIG } from './config.ts';
+import { loadThemeAssets } from './embedded-assets.ts';
 import type { RoadmapData, BuildStats } from './types.ts';
 
 /**
  * Copies static assets to the distribution directory
+ * Uses embedded assets for default theme or loads from external theme directory
  */
 function copyAssets(templateDir: string = CONFIG.TEMPLATE_DIR, outputDir: string = CONFIG.OUTPUT_DIR): void {
-  // Determine the correct assets directory
-  let assetsDir: string;
-  if (templateDir === CONFIG.TEMPLATE_DIR) {
-    // Use default assets directory for default template
-    assetsDir = CONFIG.ASSETS_DIR;
+  let assets;
+  // Check if using embedded default theme
+  if (templateDir === CONFIG.TEMPLATE_DIR || templateDir === '<embedded>') {
+    // Use embedded assets for default theme
+    assets = loadThemeAssets('<embedded>');
+    console.log('📦 Using embedded default theme');
   } else {
-    // Use theme-specific assets directory
-    assetsDir = `${templateDir}/assets`;
+    // Load from external theme directory
+    assets = loadThemeAssets(templateDir);
   }
 
-  // CSS file
-  if (existsSync(`${assetsDir}/${CONFIG.CSS_FILE}`)) {
-    const css = readFileSync(`${assetsDir}/${CONFIG.CSS_FILE}`, 'utf8');
-    writeFileSync(`${outputDir}/${CONFIG.CSS_FILE}`, css);
-    console.log('📄 CSS copied');
-  }
+  // Write CSS file
+  writeFileSync(`${outputDir}/${CONFIG.CSS_FILE}`, assets.css);
+  console.log('📄 CSS copied');
 
-  // JavaScript file
-  if (existsSync(`${assetsDir}/${CONFIG.JS_FILE}`)) {
-    const js = readFileSync(`${assetsDir}/${CONFIG.JS_FILE}`, 'utf8');
-    writeFileSync(`${outputDir}/${CONFIG.JS_FILE}`, js);
-    console.log('⚡ JS copied');
-  }
+  // Write JavaScript file
+  writeFileSync(`${outputDir}/${CONFIG.JS_FILE}`, assets.js);
+  console.log('⚡ JS copied');
 }
 
 /**

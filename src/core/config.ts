@@ -11,10 +11,10 @@ export const CONFIG = {
   OUTPUT_DIR: 'dist',
   OUTPUT_FILE: 'index.html',
 
-  // Asset paths
-  ASSETS_DIR: 'templates/assets',
-  TEMPLATE_DIR: 'templates',
-  TEMPLATES_DIR: 'templates', // Legacy compatibility
+  // Asset paths - default theme is embedded, not in filesystem
+  ASSETS_DIR: '<embedded>',
+  TEMPLATE_DIR: '<embedded>',
+  TEMPLATES_DIR: '<embedded>', // Legacy compatibility
   CSS_FILE: 'styles.css',
   JS_FILE: 'script.js',
 

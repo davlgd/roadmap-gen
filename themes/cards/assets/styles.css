@@ -275,15 +275,13 @@ body {
     margin-right: 0;
 }
 
-/* Add quarter labels to cards using nth-child */
-.quarter-cell:nth-child(2)::after {
-    content: 'Q2-2025';
+/* Add quarter labels to cards dynamically (no hardcoded years) */
+.quarter-cell::after {
     position: absolute;
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--bg-primary);
-    color: var(--text-muted);
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius);
     font-size: var(--font-size-xs);
@@ -293,55 +291,16 @@ body {
     z-index: 2;
 }
 
-.quarter-cell:nth-child(3)::after {
-    content: 'Q3-2025';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-primary);
+/* Past quarters styling */
+.quarter-cell.past-quarter::after {
     color: var(--text-muted);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    border: 1px solid var(--border-light);
-    white-space: nowrap;
-    z-index: 2;
+    border-color: var(--border-light);
 }
 
-.quarter-cell:nth-child(4)::after {
-    content: 'Q4-2025';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-primary);
+/* Next quarters styling */
+.quarter-cell.next-quarter::after {
     color: var(--text-accent);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    border: 1px solid var(--border-accent);
-    white-space: nowrap;
-    z-index: 2;
-}
-
-.quarter-cell:nth-child(5)::after {
-    content: 'Q1-2026';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-primary);
-    color: var(--text-accent);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    border: 1px solid var(--border-accent);
-    white-space: nowrap;
-    z-index: 2;
+    border-color: var(--border-accent);
 }
 
 .quarter-cell.next-quarter {

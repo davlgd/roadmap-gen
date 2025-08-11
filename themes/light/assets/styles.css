@@ -184,9 +184,10 @@ body {
 }
 
 .quarter-header.next-quarter {
-    background: var(--text-accent);
-    color: white;
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    color: #ffffff;
     font-weight: var(--font-weight-bold);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .quarter-header.past-quarter {
@@ -313,22 +314,26 @@ body {
 
 .status-badge.completed {
     background: var(--status-completed);
-    color: white;
+    color: #ffffff;
+    font-weight: var(--font-weight-bold);
 }
 
 .status-badge.in-progress {
     background: var(--status-progress);
-    color: white;
+    color: #ffffff;
+    font-weight: var(--font-weight-bold);
 }
 
 .status-badge.planned {
     background: var(--status-planned);
-    color: white;
+    color: #ffffff;
+    font-weight: var(--font-weight-bold);
 }
 
 .status-badge.on-hold {
     background: var(--status-hold);
-    color: white;
+    color: #ffffff;
+    font-weight: var(--font-weight-bold);
 }
 
 .status-badge.no-info {

@@ -1,0 +1,247 @@
+/**
+ * Shared Base CSS for all themes
+ * Common layout structures and utilities
+ */
+
+/* Reset and base layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Common structural classes */
+.container {
+    margin: 0 auto;
+}
+
+/* Category structure */
+.category-section {
+    margin-bottom: var(--spacing-lg, 1.5rem);
+    border-radius: var(--border-radius, 8px);
+    overflow: hidden;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md, 1rem);
+}
+
+.category-icon {
+    margin-right: var(--spacing-sm, 0.75rem);
+}
+
+.category-title {
+    flex: 1;
+    font-weight: var(--font-weight-semibold, 600);
+}
+
+.project-count {
+    font-size: var(--font-size-xs, 0.75rem);
+    padding: var(--spacing-xs, 0.5rem);
+    border-radius: var(--border-radius, 8px);
+}
+
+/* Table structure */
+.category-table-container {
+    overflow-x: auto;
+}
+
+.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.projects-table th {
+    text-align: center;
+    font-weight: var(--font-weight-semibold, 600);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.project-header {
+    text-align: left !important;
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+
+/* Project structure */
+.project-info {
+    vertical-align: top;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.project-name {
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.3;
+}
+
+.project-link {
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.issue-arrow {
+    opacity: 0.7;
+    margin-left: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.project-link:hover .issue-arrow {
+    opacity: 1;
+}
+
+.project-meta {
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.4;
+}
+
+/* Quarter cells */
+.quarter-cell {
+    vertical-align: top;
+    position: relative;
+}
+
+.quarter-cell.empty {
+    text-align: center;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: var(--border-radius, 8px);
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-semibold, 600);
+    white-space: nowrap;
+}
+
+/* Quarter content */
+.quarter-content {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.quarter-description {
+    line-height: 1.4;
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.quarter-details {
+    margin-bottom: var(--spacing-sm, 0.75rem);
+}
+
+.detail-item {
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+.extra-info {
+    padding-top: var(--spacing-sm, 0.75rem);
+    border-top: 1px solid var(--border-light, #ccc);
+}
+
+.extra-info > div {
+    margin-bottom: var(--spacing-xs, 0.5rem);
+    font-size: var(--font-size-xs, 0.75rem);
+    line-height: 1.3;
+}
+
+.extra-info > div:last-child {
+    margin-bottom: 0;
+}
+
+/* Metrics structure */
+.metrics-section {
+    border-radius: var(--border-radius, 8px);
+    margin-bottom: var(--spacing-lg, 1.5rem);
+}
+
+.metrics-title {
+    text-align: center;
+    font-weight: var(--font-weight-bold, 700);
+}
+
+.metrics-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg, 1.5rem);
+}
+
+.kpis-list,
+.risks-section {
+    border-radius: var(--border-radius, 8px);
+}
+
+.kpi-item,
+.risk-item {
+    line-height: 1.4;
+    margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+/* Legend structure */
+.legend-section {
+    border-radius: var(--border-radius, 8px);
+}
+
+.legend-section h3 {
+    text-align: center;
+    font-weight: var(--font-weight-semibold, 600);
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius, 8px);
+}
+
+.legend-status {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: var(--spacing-sm, 0.75rem);
+    flex-shrink: 0;
+}
+
+.next-quarters-info {
+    text-align: center;
+    font-style: italic;
+    border-radius: var(--border-radius, 8px);
+}
+
+/* Common responsive utilities */
+@media (max-width: 768px) {
+    .metrics-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md, 1rem);
+    }
+
+    .legend-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar base styles (themes will customize colors) */
+.category-table-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.category-table-container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+}

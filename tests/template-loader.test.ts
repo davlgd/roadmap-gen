@@ -47,11 +47,14 @@ describe('template-loader', () => {
     });
 
     test('should throw error for non-existent template', () => {
-      expect(() => loadTemplate('non-existent')).toThrow('Failed to load template');
+      expect(() => loadTemplate('non-existent')).toThrow('Template not found');
     });
 
-    test('should throw error for non-existent template directory', () => {
-      expect(() => loadTemplate('main', 'non-existent-dir')).toThrow('Failed to load template');
+    test('should fallback to embedded template for non-existent directory', () => {
+      // Should not throw since embedded templates are available
+      const template = loadTemplate('main', 'non-existent-dir');
+      expect(template).toContain('<!doctype html>');
+      expect(template).toContain('{{title}}');
     });
   });
 
@@ -105,7 +108,7 @@ describe('template-loader', () => {
     test('should work with empty variables', () => {
       const result = processTemplate('legend');
       expect(result).toContain('📌 Legend');
-      expect(result).toContain('Next quarters ()');
+      expect(result).toContain('<div class="next-quarters-info"></div>');
     });
   });
 

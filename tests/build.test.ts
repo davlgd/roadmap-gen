@@ -47,10 +47,10 @@ categories:
     });
   });
 
-  test('should successfully build with default parameters', async () => {
+  test('should successfully build with embedded default theme', async () => {
     writeFileSync(testDataFile, validYamlData);
 
-    await build(testDataFile, 'templates', testOutputDir);
+    await build(testDataFile, '<embedded>', testOutputDir);
 
     // Verify output was created
     expect(existsSync(testOutputDir)).toBe(true);
@@ -63,6 +63,11 @@ categories:
     expect(html).toContain('Test Roadmap Build');
     expect(html).toContain('Testing the build process');
     expect(html).toContain('Test Build Project');
+
+    // Verify embedded CSS content
+    const css = readFileSync(`${testOutputDir}/styles.css`, 'utf8');
+    expect(css).toContain('/* Roadmap Styles */');
+    expect(css).toContain('body {');
   });
 
   test('should work with existing themed templates', async () => {
@@ -94,7 +99,7 @@ categories:
 
     expect(existsSync(testOutputDir)).toBe(false);
 
-    await build(testDataFile, 'templates', testOutputDir);
+    await build(testDataFile, '<embedded>', testOutputDir);
 
     expect(existsSync(testOutputDir)).toBe(true);
   });

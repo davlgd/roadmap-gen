@@ -74,8 +74,8 @@ describe('generateHTMLTemplate', () => {
   test('should display next quarters information', () => {
     const html = generateHTMLTemplate(testRoadmap, '', '');
 
-    expect(html).toContain('Next quarters');
-    expect(html).toContain('Q2-2025');
+    expect(html).toContain('Next quarters: Q2-2025');
+    expect(html).toContain('<div class="next-quarters-info">Next quarters: Q2-2025</div>');
   });
 
   test('should handle roadmap without next quarters', () => {
@@ -84,8 +84,8 @@ describe('generateHTMLTemplate', () => {
 
     const html = generateHTMLTemplate(roadmapWithoutNext, '', '');
 
-    expect(html).toContain('Next quarters');
-    expect(html).toContain('()'); // Should show empty parentheses
+    expect(html).toContain('📌 Legend');
+    expect(html).toContain('<div class="next-quarters-info"></div>'); // Empty div when no next quarters
   });
 
   test('should escape HTML in roadmap data', () => {

@@ -1,0 +1,13 @@
+title: 'Test Embedded Theme'
+vision: 'Testing embedded assets without themes directory'
+quarters: ['Q1-2025']
+categories:
+  - name: 'Test Category'
+    icon: '🧪'
+    projects:
+      - name: 'Test Project'
+        responsible: 'Test User'
+        quarters:
+          Q1-2025:
+            status: 'planned'
+            description: 'Testing embedded theme functionality'

@@ -134,6 +134,6 @@ describe('generateHTML', () => {
     const html = generateHTML(roadmapWithEmptyQuarters);
 
     expect(html).toContain('Empty Project');
-    expect(html).toContain('No information');
+    expect(html).toContain('No info');
   });
 });

@@ -53,10 +53,13 @@ categories:
               - 'DNS cutover planned for December 22'
               - 'Monitoring dashboard configured'
               - '35% cost reduction anticipated'
+              - text: 'Internal: Server costs negotiation details'
+                internal: true
             progress: '3/4 phases'
             risks:
               - 'Legacy dependencies more complex than expected'
               - 'Support team training needed'
+            internal_notes: 'Migration blocked by legal approval on server location'
           Q1-2026:
             status: 'planned'
             description: 'Migration finalization, advanced monitoring, cost optimization'
@@ -194,10 +197,13 @@ categories:
               - '100% user migration'
               - 'Improved onboarding'
               - 'Advanced UX analytics'
+              - text: 'Internal: User feedback analysis from beta testers'
+                internal: true
             objectives:
               - 'New UI adoption: 95%'
               - 'NPS +15 points'
               - 'Conversion +20%'
+            internal_notes: 'Some beta feedback indicates potential resistance to new navigation'
 
       - name: 'Design System V2'
         responsible: 'Design Team (Marc P.)'
@@ -279,6 +285,25 @@ categories:
               - 'API revenue: 100k€/month'
               - 'Partner satisfaction: 4.5/5'
 
+      - name: 'Internal Security Audit'
+        responsible: 'Security Team (CONFIDENTIAL)'
+        internal: true # Entire project is confidential
+        quarters:
+          Q4-2025:
+            status: 'in-progress'
+            description: 'Comprehensive security assessment in progress'
+            details:
+              - 'Penetration testing by external firm'
+              - 'Code review of critical components'
+              - 'Compliance audit (SOC2, GDPR)'
+          Q1-2026:
+            status: 'planned'
+            description: 'Remediation and certification'
+            details:
+              - 'Security fixes implementation'
+              - 'Staff training on new procedures'
+              - 'Security certification process'
+
       - name: 'Performance Optimization'
         responsible: 'Backend + DBA (Sophie M.)'
         issue: 'https://github.com/company/backend/issues/302'
@@ -313,6 +338,8 @@ categories:
               - 'Smart auto-scaling'
               - 'Predictive caching with ML'
               - 'Performance budgets established'
+              - text: 'Internal: Vendor negotiations for monitoring tools'
+                internal: true
             objectives:
               - 'p95 < 200ms on all endpoints'
               - 'Infrastructure savings: 35k€/month'
@@ -326,7 +353,11 @@ metrics:
     - 'Quality: 0 critical production bugs'
     - 'Team satisfaction: >4.2/5'
     - 'Turnover: <8%'
+    - text: 'Internal KPI: Budget variance vs forecast'
+      internal: true
   risks:
     - 'Recruiting 8 senior profiles in progress'
     - 'POCs architecture validation mandatory'
     - '12% contingency for unexpected issues'
+    - text: 'Internal risk: Potential staff departures in Q1'
+      internal: true

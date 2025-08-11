@@ -10,7 +10,7 @@ import { parseYAML, validateRoadmap } from '../data/parser.ts';
 import { generateHTML } from '../template/html-generator.ts';
 import { CONFIG } from './config.ts';
 import { loadThemeAssets } from './embedded-assets.ts';
-import type { RoadmapData, BuildStats } from './types.ts';
+import type { RoadmapData, BuildStats, DetailEntry, MetricEntry } from './types.ts';
 
 /**
  * Copies static assets to the distribution directory
@@ -106,6 +106,108 @@ function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats, outputDir: st
 }
 
 /**
+ * Filters out internal content from roadmap data
+ */
+function filterInternalContent(roadmap: RoadmapData): RoadmapData {
+  const filteredCategories = roadmap.categories
+    .map(category => ({
+      ...category,
+      projects: category.projects
+        .filter(project => !project.internal)
+        .map(project => ({
+          ...project,
+          quarters: Object.fromEntries(
+            Object.entries(project.quarters)
+              .filter(([, quarter]) => !quarter.internal)
+              .map(([key, quarter]) => [
+                key,
+                {
+                  ...quarter,
+                  details: quarter.details ? filterDetailEntries(quarter.details) : undefined,
+                  internal_notes: undefined, // Always exclude internal notes
+                },
+              ])
+          ),
+        })),
+    }))
+    .filter(category => category.projects.length > 0); // Remove categories with no visible projects
+
+  const filteredRoadmap: RoadmapData = {
+    ...roadmap,
+    categories: filteredCategories,
+    metrics:
+      roadmap.metrics && !roadmap.metrics.internal
+        ? {
+            ...roadmap.metrics,
+            kpis: roadmap.metrics.kpis ? filterMetricEntries(roadmap.metrics.kpis) : undefined,
+            risks: roadmap.metrics.risks ? filterMetricEntries(roadmap.metrics.risks) : undefined,
+          }
+        : undefined,
+  };
+
+  return filteredRoadmap;
+}
+
+/**
+ * Filters internal detail entries
+ */
+function filterDetailEntries(details: DetailEntry[]): DetailEntry[] {
+  return details.filter(detail => {
+    if (typeof detail === 'string') {
+      return true;
+    }
+    return !detail.internal;
+  });
+}
+
+/**
+ * Filters internal metric entries
+ */
+function filterMetricEntries(metrics: MetricEntry[]): MetricEntry[] {
+  return metrics.filter(metric => {
+    if (typeof metric === 'string') {
+      return true;
+    }
+    return !metric.internal;
+  });
+}
+
+/**
+ * Generates the roadmap HTML and returns content statistics
+ */
+function generateRoadmapContent(
+  roadmap: RoadmapData,
+  withInternal: boolean
+): { html: string; filteredRoadmap: RoadmapData } {
+  const filteredRoadmap = withInternal ? roadmap : filterInternalContent(roadmap);
+  const html = generateHTML(filteredRoadmap);
+  return { html, filteredRoadmap };
+}
+
+/**
+ * Writes output files and displays build information
+ */
+function writeOutputFiles(
+  html: string,
+  filteredRoadmap: RoadmapData,
+  templateDir: string,
+  outputDir: string,
+  withInternal: boolean
+): void {
+  copyAssets(templateDir, outputDir);
+  const outputPath = `${outputDir}/${CONFIG.OUTPUT_FILE}`;
+  writeFileSync(outputPath, html, 'utf8');
+
+  const htmlSize = (html.length / CONFIG.BYTES_TO_KB).toFixed(1);
+  const stats = calculateStats(filteredRoadmap, htmlSize);
+  displayBuildInfo(filteredRoadmap, stats, outputDir);
+
+  if (!withInternal) {
+    console.log('ℹ️  Public view: internal content filtered out (use --with-internal to include)');
+  }
+}
+
+/**
  * Main build function - orchestrates the entire build process
  *
  * @throws Error if build process fails
@@ -113,7 +215,8 @@ function displayBuildInfo(roadmap: RoadmapData, stats: BuildStats, outputDir: st
 async function build(
   sourceFile: string = CONFIG.INPUT_FILE,
   templateDir: string = CONFIG.TEMPLATE_DIR,
-  outputDir: string = CONFIG.OUTPUT_DIR
+  outputDir: string = CONFIG.OUTPUT_DIR,
+  withInternal: boolean = false
 ): Promise<void> {
   try {
     console.log('🚀 Building roadmap…');
@@ -124,19 +227,13 @@ async function build(
     const yamlContent = readFileSync(sourceFile, 'utf8');
     const roadmap = processYamlData(yamlContent);
 
-    // Prepare output and generate content
+    // Generate content and prepare output
     ensureOutputDir(outputDir);
     console.log('🎨 Generating HTML…');
-    const html = generateHTML(roadmap);
+    const { html, filteredRoadmap } = generateRoadmapContent(roadmap, withInternal);
 
-    // Output files and display results
-    copyAssets(templateDir, outputDir);
-    const outputPath = `${outputDir}/${CONFIG.OUTPUT_FILE}`;
-    writeFileSync(outputPath, html, 'utf8');
-
-    const htmlSize = (html.length / CONFIG.BYTES_TO_KB).toFixed(1);
-    const stats = calculateStats(roadmap, htmlSize);
-    displayBuildInfo(roadmap, stats, outputDir);
+    // Write files and display results
+    writeOutputFiles(html, filteredRoadmap, templateDir, outputDir, withInternal);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Build error:', errorMessage);

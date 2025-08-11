@@ -6,7 +6,15 @@ import type { RoadmapData, Project, Category, QuarterData } from '../core/types.
 import { STATUS_MAP } from '../core/config.ts';
 import { generateHTMLTemplate } from './template.ts';
 import { processTemplate } from './template-loader.ts';
-import { generateListItems, createInfoSection, createInfoList, escapeHtml, sanitizeUrl } from './html-utils.ts';
+import {
+  generateListItems,
+  createInfoSection,
+  createInfoList,
+  escapeHtml,
+  sanitizeUrl,
+  detailEntriesToStrings,
+  metricEntriesToStrings,
+} from './html-utils.ts';
 
 /**
  * Generates complete HTML for the roadmap
@@ -72,9 +80,8 @@ function buildDetailsHTML(quarterData: QuarterData): string {
   let detailsHTML = '';
 
   if (quarterData.details && quarterData.details.length > 0) {
-    const detailItems = quarterData.details
-      .map(detail => `<div class="detail-item">• ${escapeHtml(detail)}</div>`)
-      .join('');
+    const detailStrings = detailEntriesToStrings(quarterData.details);
+    const detailItems = detailStrings.map(detail => `<div class="detail-item">• ${escapeHtml(detail)}</div>`).join('');
     detailsHTML += `<div class="quarter-details">${detailItems}</div>`;
   }
 
@@ -212,17 +219,19 @@ function generateMetricsSection(metrics?: RoadmapData['metrics']): string {
 /**
  * Generates KPIs section HTML
  */
-function generateKPIsSection(kpis?: string[]): string {
+function generateKPIsSection(kpis?: RoadmapData['metrics']['kpis']): string {
   if (!kpis) return '';
 
-  return generateListItems(kpis, 'kpi-item', '• ');
+  const kpiStrings = metricEntriesToStrings(kpis);
+  return generateListItems(kpiStrings, 'kpi-item', '• ');
 }
 
 /**
  * Generates risks section HTML
  */
-function generateRisksSection(risks?: string[]): string {
+function generateRisksSection(risks?: RoadmapData['metrics']['risks']): string {
   if (!risks) return '';
 
-  return generateListItems(risks, 'risk-item', '• ');
+  const riskStrings = metricEntriesToStrings(risks);
+  return generateListItems(riskStrings, 'risk-item', '• ');
 }

@@ -41,7 +41,7 @@ export default [
       'eol-last': ['error', 'always'],
       semi: ['error', 'always'],
       quotes: ['error', 'single'],
-      indent: ['error', 2],
+      // indent: ['error', 2], // Disabled - let Prettier handle indentation
 
       // Best practices
       'no-console': 'off', // Allow console for CLI tool

@@ -33,16 +33,18 @@ Options:
   -s, --source <file>    Source YAML file path (default: ${CONFIG.INPUT_FILE})
   -t, --template <dir>   Template directory path (default: ${CONFIG.TEMPLATE_DIR})
   -o, --output <dir>     Output directory path (default: ${CONFIG.OUTPUT_DIR})
+  --with-internal        Include internal projects and details in output
   -h, --help            Show this help message
 
 Examples:
-  roadmap-gen                           # Use default ${CONFIG.INPUT_FILE}
+  roadmap-gen                           # Use default ${CONFIG.INPUT_FILE} (public view)
   roadmap-gen --source my-roadmap.yaml  # Use custom file
   roadmap-gen -s ./config/roadmap.yaml  # Use custom file (short)
+  roadmap-gen --with-internal           # Include internal content
   roadmap-gen --template ./themes/corporate  # Use custom template
   roadmap-gen -t ./themes/minimal -s data.yml  # Custom template and source
-  roadmap-gen -o ./public               # Output to public directory
-  roadmap-gen -t themes/executive -o reports  # Custom template and output
+  roadmap-gen -o ./public --with-internal      # Output to public directory with internal data
+  roadmap-gen -t themes/executive -o reports   # Custom template and output
 
 Documentation: https://github.com/davlgd/roadmap-gen
 `);
@@ -51,7 +53,7 @@ Documentation: https://github.com/davlgd/roadmap-gen
 // Execute if called directly
 if (import.meta.main) {
   const args = parse(process.argv, {
-    boolean: ['help', 'h'],
+    boolean: ['help', 'h', 'with-internal'],
     string: ['source', 's', 'template', 't', 'output', 'o'],
     alias: {
       h: 'help',
@@ -69,7 +71,9 @@ if (import.meta.main) {
   const sourceFile = args.source || CONFIG.INPUT_FILE;
   const templateDir = args.template || CONFIG.TEMPLATE_DIR;
   const outputDir = args.output || CONFIG.OUTPUT_DIR;
-  await build(sourceFile, templateDir, outputDir);
+  const withInternal = args['with-internal'] || false;
+
+  await build(sourceFile, templateDir, outputDir, withInternal);
 }
 
 // Export main function for programmatic use

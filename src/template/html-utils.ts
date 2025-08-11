@@ -2,6 +2,8 @@
  * HTML generation utilities to reduce code duplication
  */
 
+import type { DetailEntry, MetricEntry } from '../core/types.ts';
+
 // ASCII code for apostrophe character to avoid quote conflicts in ESLint/Prettier
 const APOSTROPHE_CHAR_CODE = 39;
 
@@ -84,4 +86,34 @@ export function createInfoSection(label: string, content: string, infoClass: str
 export function createInfoList(label: string, items: string[], infoClass: string): string {
   const itemsList = items.map(item => `• ${escapeHtml(item)}`).join('<br>');
   return `<div class="${infoClass}"><strong>${escapeHtml(label)}</strong><br>${itemsList}</div>`;
+}
+
+/**
+ * Converts DetailEntry array to string array for HTML generation
+ *
+ * @param details - Array of DetailEntry (string or DetailItem)
+ * @returns Array of strings
+ */
+export function detailEntriesToStrings(details: DetailEntry[]): string[] {
+  return details.map(detail => {
+    if (typeof detail === 'string') {
+      return detail;
+    }
+    return detail.text;
+  });
+}
+
+/**
+ * Converts MetricEntry array to string array for HTML generation
+ *
+ * @param metrics - Array of MetricEntry (string or MetricItem)
+ * @returns Array of strings
+ */
+export function metricEntriesToStrings(metrics: MetricEntry[]): string[] {
+  return metrics.map(metric => {
+    if (typeof metric === 'string') {
+      return metric;
+    }
+    return metric.text;
+  });
 }

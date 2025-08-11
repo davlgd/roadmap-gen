@@ -10,15 +10,24 @@ export interface StatusInfo {
   text: string;
 }
 
+export interface DetailItem {
+  text: string;
+  internal?: boolean;
+}
+
+export type DetailEntry = string | DetailItem;
+
 export interface QuarterData {
   status: ProjectStatus;
   description: string;
-  details?: string[];
+  details?: DetailEntry[];
   progress?: string;
   metrics?: string[];
   risks?: string[];
   objectives?: string[];
   dependencies?: string[];
+  internal?: boolean;
+  internal_notes?: string;
 }
 
 export interface Project {
@@ -26,6 +35,7 @@ export interface Project {
   responsible?: string;
   issue?: string;
   quarters: Record<string, QuarterData>;
+  internal?: boolean;
 }
 
 export interface Category {
@@ -34,9 +44,17 @@ export interface Category {
   projects: Project[];
 }
 
+export interface MetricItem {
+  text: string;
+  internal?: boolean;
+}
+
+export type MetricEntry = string | MetricItem;
+
 export interface Metrics {
-  kpis?: string[];
-  risks?: string[];
+  kpis?: MetricEntry[];
+  risks?: MetricEntry[];
+  internal?: boolean;
 }
 
 export interface RoadmapData {
@@ -46,6 +64,13 @@ export interface RoadmapData {
   next_quarters?: string[];
   categories: Category[];
   metrics?: Metrics;
+}
+
+export interface BuildOptions {
+  sourceFile?: string;
+  templateDir?: string;
+  outputDir?: string;
+  withInternal?: boolean;
 }
 
 export interface BuildStats {

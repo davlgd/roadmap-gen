@@ -10,23 +10,12 @@ Transform your project roadmap into beautiful, interactive visualizations. Built
 
 ## ✨ Features
 
-- **🎨 Multiple Themes**: Executive, Developer, and Marketing themes for different audiences
-- **📊 Rich Visualizations**: Interactive project tracking across quarters with status indicators
+- **🎨 Multiple Themes**: Professional themes for different audiences
+- **📊 Interactive Visualizations**: Project tracking across quarters with status indicators
 - **⚡ Lightning Fast**: Built with Bun runtime for optimal performance
-- **🔧 Easy Configuration**: Simple YAML format for defining roadmap
-- **📁 Flexible Output**: Custom output directories for different deployment needs
-- **📱 Responsive**: Works perfectly on desktop, tablet, and mobile devices
-- **🚀 Dual Usage**: Both CLI tool and programmatic API
-- **🎯 Export Ready**: Generate standalone HTML files for easy sharing
-- **📈 Flexible Progress**: Support for percentages, fractions, phases, or custom text
-- **🌍 Year-Agnostic**: Automatically adapts to current year, no hard coded dates
-
-### Visual Status Tracking
-
-- ✅ **Completed** - Objectives achieved
-- 🟡 **In Progress** - Active development
-- 🔵 **Planned** - Approved and scheduled
-- ⏸️ **On Hold** - Temporarily suspended
+- **🔧 Simple Configuration**: YAML format for defining roadmaps
+- **🚀 Dual Usage**: CLI tool and programmatic API
+- **📱 Responsive Design**: Works on desktop, tablet, and mobile
 
 ## 🛠️ Installation
 
@@ -45,83 +34,42 @@ yarn add roadmap-gen
 
 ### Pre-compiled Binaries
 
-Download platform-specific binaries from the [releases page](https://github.com/davlgd/roadmap-gen/releases):
-
-- **Linux**: `roadmap-gen-linux-x64`, `roadmap-gen-linux-arm64`
-- **macOS**: `roadmap-gen-darwin-arm64`
-- **Windows**: `roadmap-gen-win32-x64.exe`
-
-### From Source
-
-```bash
-git clone https://github.com/davlgd/roadmap-gen.git
-cd roadmap-gen
-bun install
-bun run build
-```
+Download from [releases page](https://github.com/davlgd/roadmap-gen/releases) for Linux, macOS, or Windows.
 
 ## 🚀 Quick Start
 
 ### CLI Usage
 
 ```bash
-# Direct usage with Bun (recommended)
+# Basic usage
 bunx roadmap-gen
-
-# Or with npm
 npx roadmap-gen
 
-# Global installation
-npm install -g roadmap-gen
-roadmap-gen
-
-# Custom source file
-roadmap-gen --source ./my-roadmap.yaml
-roadmap-gen -s ./config/roadmap.yaml
-
-# Use different themes
-roadmap-gen --template themes/mobile
-roadmap-gen -t themes/compact
-
-# Custom output directory
-roadmap-gen --output ./public
-roadmap-gen -o ./reports
-
-# Combined options
-roadmap-gen -s ./data/roadmap.yaml -t themes/executive -o ./public
+# With options
+roadmap-gen -s ./my-roadmap.yaml -t themes/cards -o ./public
 
 # Show help
 roadmap-gen --help
-roadmap-gen -h
 ```
 
 ### Programmatic API
 
 ```typescript
-import { build, generateHTML, parseYAML, CONFIG } from 'roadmap-gen';
+import { build } from 'roadmap-gen';
 
-// Use individual functions
-const yamlContent = readFileSync('roadmap.yaml', 'utf8');
-const roadmap = parseYAML(yamlContent);
-const html = generateHTML(roadmap);
-writeFileSync('roadmap.html', html);
-
-// Or use the main build function
-await build(); // Uses defaults: roadmap.yaml, templates, dist
-await build('./custom-roadmap.yaml'); // Custom source file
-await build('./data.yaml', 'themes/light'); // Custom source + theme
-await build('./data.yaml', 'themes/cards', './public'); // All custom
+await build(); // Uses defaults
+await build('./data.yaml', 'themes/cards', './public');
 ```
 
 ## 📝 YAML Configuration
 
-Create a `roadmap.yaml` file with your roadmap structure (see `example.yml` for reference):
+Create a `roadmap.yaml` file (see `example.yml` for complete reference):
 
 ```yaml
 title: 'Product Roadmap 2025'
 vision: 'Building the future of our platform'
 quarters: ['Q1-2025', 'Q2-2025', 'Q3-2025', 'Q4-2025']
-next_quarters: ['Q2-2025', 'Q3-2025'] # Highlighted quarters
+next_quarters: ['Q2-2025'] # Highlighted quarters
 
 categories:
   - name: 'Infrastructure'
@@ -133,174 +81,37 @@ categories:
         quarters:
           Q1-2025:
             status: 'in-progress'
-            description: 'Migrating core services to cloud infrastructure'
-            details:
-              - 'Setup AWS infrastructure'
-              - 'Migrate databases'
-              - 'Configure monitoring'
-            progress: '60%' # Can also be "3/5 tasks", "Phase 2", etc.
-            risks: ['Potential downtime during migration']
-          Q2-2025:
-            status: 'planned'
-            description: 'Complete migration and optimize'
-            objectives: ['Zero downtime deployment', 'Cost optimization']
-
-# Optional: Global metrics
-metrics:
-  kpis:
-    - 'System uptime > 99.9%'
-    - 'Performance improvement > 25%'
-  risks:
-    - 'Resource constraints in Q3'
-    - 'Technical debt accumulation'
+            description: 'Migrating core services'
+            progress: '60%'
 ```
 
 ## 🎨 Themes
 
-roadmap-gen includes multiple professionally designed themes for different audiences:
+Professional themes for different audiences:
 
-### Available Themes
+- **light** - Clean minimal design
+- **cards** - Project cards layout for visual presentations
+- **compact** - Ultra-dense table for many projects
+- **mobile** - Mobile-first responsive design
+- **timeline** - Enhanced chronological visualization
 
-| Theme                            | Layout Format                           | Best For                                    |
-| -------------------------------- | --------------------------------------- | ------------------------------------------- |
-| **Cards** (`themes/cards`)       | Individual project cards in grid layout | Visual presentations, easy project scanning |
-| **Compact** (`themes/compact`)   | Ultra-dense table, minimal spacing      | Executive overviews, many projects          |
-| **Light** (`themes/light`)       | Professional light table layout         | Standard presentations, balanced view       |
-| **Mobile** (`themes/mobile`)     | Mobile-first responsive design          | Mobile viewing, touch-optimized interface   |
-| **Timeline** (`themes/timeline`) | Enhanced chronological visualization    | Timeline focus, project evolution           |
-
-### Creating Custom Themes
-
-1. Copy an existing theme: `cp -r themes/compact themes/my-theme`
-2. Customize `themes/my-theme/assets/styles.css` with your own layout
-3. Customize custom templates in `themes/my-theme/` if needed
-4. Customize assets (images, scripts) in `themes/my-theme/assets/`
-5. Use your theme: `roadmap-gen -t themes/my-theme`
-
-## 🏗️ Architecture
-
-roadmap-gen follows modern TypeScript best practices with a clean, modular architecture:
-
-```
-index.ts                    # 🎯 Main entrypoint (CLI & API)
-src/
-├── core/                   # Core business logic
-│   ├── build.ts            # Build orchestration
-│   ├── config.ts           # Configuration constants
-│   └── types.ts            # TypeScript definitions
-├── data/                   # Data processing
-│   └── parser.ts           # YAML parsing & validation
-├── template/               # Template system
-│   ├── template.ts         # HTML template generation
-│   ├── template-loader.ts  # Template loading & caching
-│   ├── html-generator.ts   # HTML generation
-│   └── html-utils.ts       # Utility functions
-├── assets/                 # Default static assets
-│   ├── styles.css          # Default styling
-│   └── script.js           # Interactive features
-├── templates/              # Default HTML templates
-├── themes/                 # 🎨 Multiple themes
-├── default/                # Default theme
-├── compact/                # Compact high-density theme
-├── timeline/               # Timeline visualization theme
-├── cards/                  # Card-based layout theme
-├── mobile/                 # Mobile-optimized theme
-└── README.md               # Theme documentation
-```
+See [themes/README.md](themes/README.md) for details and custom theme creation.
 
 ## 🔧 Development
 
-### Prerequisites
-
-- [Bun](https://bun.sh/) >= 1.2
-- Node.js >= 18 (for compatibility)
-
-### Setup
-
 ```bash
-# Clone the repository
 git clone https://github.com/davlgd/roadmap-gen.git
 cd roadmap-gen
-
-# Install dependencies
 bun install
-
-# Run tests
 bun test
-
-# Build project
-bun run build
-
-# Development server
-bun run dev
-
-# Code quality
-bun run lint
-bun run lint:fix
-
-# Formatting
-bun run format
-bun run format:check
-
-# Quality checks
-bun run check
-bun run fix
-
-# Full validation
-bun run validate
 ```
-
-### Testing
-
-```bash
-# Run all tests
-bun test
-
-# Watch mode
-bun run test:watch
-
-# With coverage
-bun test --coverage
-```
-
-## 📊 Key Features Deep Dive
-
-### Template System
-
-- **External Templates**: Default template stored in `templates/` directory
-- **Variable Replacement**: Simple `{{variable}}` syntax for dynamic content
-- **Template Caching**: Automatic caching for improved performance
-- **Easy Customization**: Modify HTML structure without touching TypeScript
-
-### Data Validation
-
-- **Comprehensive Validation**: Strict YAML schema validation
-- **Error Reporting**: Clear, actionable error messages
-- **Type Safety**: Full TypeScript type checking throughout
-
-### Performance
-
-- **Template Caching**: Reduces file I/O operations
-- **Optimized Builds**: Minified output with source maps
-- **Bun Runtime**: Native performance optimizations
 
 ## 🤝 Contributing
-
-Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) and:
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes with tests
-4. Run the test suite
-5. Submit a pull request
-
-### Development Guidelines
-
-- Follow TypeScript strict mode
-- Write comprehensive tests
-- Use meaningful commit messages
-- Update documentation as needed
-- Maintain code quality with ESLint
+4. Submit a pull request
 
 ## 📄 License
 
@@ -308,13 +119,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🚀 Built With
 
-- **[Bun](https://bun.sh/)** - Fast JavaScript runtime and toolkit
-- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
+- **[Bun](https://bun.sh/)** - Runtime and toolkit
+- **[TypeScript](https://www.typescriptlang.org/)** - Type safety
 - **[js-yaml](https://github.com/nodeca/js-yaml)** - YAML parsing
-- **[@bomb.sh/args](https://bomb.sh/docs/args/api)** - CLI argument parsing
-- **[ESLint](https://eslint.org/)** - Code quality and consistency
-- **[Prettier](https://prettier.io/)** - Code formatting
-- **[EditorConfig](https://editorconfig.org/)** - Consistent coding styles
 
 ---
 

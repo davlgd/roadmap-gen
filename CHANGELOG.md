@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025-08-11
+
+### Added
+
+- 📦 **Embedded Default Theme**: Default theme is now fully embedded in the binary for self-contained usage
+- 🎯 **Smart Theme Resolution**: Automatic detection between embedded default and external themes
+
+### Fixed
+
+- **Code Quality**: Resolved ESLint warnings and formatting issues
+
+### Technical
+
+- **Embedded Assets**: Complete default theme embedded in `src/core/embedded-assets.ts`
+- **Theme Loading**: Enhanced `loadThemeAssets()` with embedded vs external theme detection
+- **Template System**: Improved template variable consistency across all generators
+- **Build Process**: Streamlined asset copying for both embedded and external themes
+
 ## [0.3.0] - 2025-08-10
 
 ### Added

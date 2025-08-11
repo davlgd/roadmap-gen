@@ -11,7 +11,7 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ## Project Details
 
 - **Name**: roadmap-gen
-- **Version**: 0.2.2
+- **Version**: 0.3.1
 - **Runtime**: Bun (primary), Node.js compatible
 - **Language**: TypeScript with strict configuration
 - **Architecture**: Modular design with separation of concerns
@@ -24,20 +24,13 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 # Direct usage with Bun (recommended)
 bunx roadmap-gen
 
-# With custom source file
-bunx roadmap-gen --source ./my-roadmap.yaml
-bunx roadmap-gen -s ./config/roadmap.yaml
+# With theme (external theme directory)
+bunx roadmap-gen -s ./my-roadmap.yaml -t themes/cards -o ./public
 
 # Show help
 bunx roadmap-gen --help
-bunx roadmap-gen -h
 
 # Or with npm
-npx roadmap-gen
-npx roadmap-gen --source ./my-roadmap.yaml
-
-# Local installation
-npm install roadmap-gen
 npx roadmap-gen
 ```
 
@@ -57,8 +50,8 @@ const html = generateHTML(roadmap);
 writeFileSync('roadmap.html', html);
 
 // Or use the main build function
-await build(); // Uses default roadmap.yaml
-await build('./custom-roadmap.yaml'); // Custom source file
+await build(); // Uses defaults
+await build('./data.yaml', 'themes/cards', './public'); // All custom
 ```
 
 ### Local Development
@@ -104,19 +97,29 @@ src/
 │   ├── template-loader.ts # Template loading and variable replacement
 │   ├── html-generator.ts  # Modular HTML generation functions
 │   └── html-utils.ts      # HTML generation utilities (DRY helpers)
-└── assets/           # Static CSS and JavaScript files
-    ├── styles.css
-    └── script.js
 
-templates/           # HTML template files
-├── main.html        # Main document structure
-├── header.html      # Page header template
-├── legend.html      # Status legend template
-├── category.html    # Category section template
-├── project-row.html # Project table row template
-├── quarter-cell.html # Quarter data cell template
-├── quarter-cell-empty.html # Empty quarter cell template
-└── metrics.html     # Metrics section template
+themes/              # 🎨 All themes (including default)
+├── default/         # Default embedded theme
+│   ├── assets/      # Default static assets
+│   │   ├── styles.css  # Default styling
+│   │   └── script.js   # Interactive features
+│   ├── main.html        # Main document structure
+│   ├── header.html      # Page header template
+│   ├── legend.html      # Status legend template
+│   ├── category.html    # Category section template
+│   ├── project-row.html # Project table row template
+│   ├── quarter-cell.html # Quarter data cell template
+│   ├── quarter-cell-empty.html # Empty quarter cell template
+│   └── metrics.html     # Metrics section template
+├── light/           # Light minimal theme
+│   └── assets/
+│       ├── styles.css
+│       └── script.js
+├── cards/           # Card-based layout theme
+├── compact/         # Compact high-density theme
+├── mobile/          # Mobile-optimized theme
+├── timeline/        # Timeline visualization theme
+└── README.md        # Theme documentation
 
 tests/               # Comprehensive test suite (65+ tests)
 ├── build.test.ts    # Build process testing
@@ -254,6 +257,15 @@ Template files use `{{variable}}` placeholders that are replaced with actual dat
 - Test changes by running `bun run build`
 - Templates are automatically cached for performance
 
+### Working with Themes
+
+- **Default theme**: Embedded in binary (no filesystem needed) - used when no theme specified
+- **External themes**: Located in `themes/[name]/` directories
+- **Theme structure**: `assets/` (styles.css, script.js), `templates/` (optional overrides)
+- **Shared resources**: `themes/shared/` contains common JavaScript/CSS to avoid duplication
+- Use `-t themes/[name]` CLI flag to specify external theme
+- All external themes load shared functionality automatically
+
 ### Testing
 
 - Tests use Bun's built-in test runner
@@ -266,7 +278,7 @@ Template files use `{{variable}}` placeholders that are replaced with actual dat
 Generates:
 
 - **index.html** - Complete roadmap visualization
-- **styles.css** - Professional dark theme styling
+- **styles.css** - Professional theme styling (embedded default)
 - **script.js** - Interactive features and navigation
 
 Features:
@@ -274,7 +286,7 @@ Features:
 - Responsive design with horizontal scrolling
 - Interactive project details
 - Current period highlighting
-- Professional dark theme
+- Multiple professional themes
 - Keyboard and mouse navigation
 - Exportable HTML format
 

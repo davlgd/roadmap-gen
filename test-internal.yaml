@@ -1,0 +1,63 @@
+title: 'Test Internal Content Roadmap'
+vision: 'Testing internal content filtering functionality'
+
+quarters:
+  - Q1-2025
+  - Q2-2025
+
+next_quarters:
+  - Q2-2025
+
+categories:
+  - name: 'Public Projects'
+    icon: '🌍'
+    projects:
+      - name: 'Public Feature A'
+        responsible: 'Public Team'
+        quarters:
+          Q1-2025:
+            status: 'completed'
+            description: 'Public description'
+            details:
+              - 'Public detail 1'
+              - text: 'Internal detail (should be hidden)'
+                internal: true
+              - 'Public detail 2'
+          Q2-2025:
+            status: 'planned'
+            description: 'Another public description'
+            internal_notes: 'This is an internal note'
+
+      - name: 'Internal Project'
+        internal: true # Entire project should be hidden
+        responsible: 'Secret Team'
+        quarters:
+          Q1-2025:
+            status: 'in-progress'
+            description: 'Secret work happening'
+
+  - name: 'Mixed Visibility'
+    icon: '🔒'
+    projects:
+      - name: 'Semi-Public Project'
+        responsible: 'Mixed Team'
+        quarters:
+          Q1-2025:
+            status: 'completed'
+            description: 'Public phase completed'
+          Q2-2025:
+            status: 'planned'
+            description: 'Next phase planned'
+            internal: true # This quarter should be hidden
+
+metrics:
+  kpis:
+    - 'Public KPI: User satisfaction > 80%'
+    - text: 'Internal KPI: Revenue details'
+      internal: true
+    - 'Public KPI: Performance improvement'
+  risks:
+    - 'Public risk: Market competition'
+    - text: 'Internal risk: Budget concerns'
+      internal: true
+  internal: false # Metrics section should be visible

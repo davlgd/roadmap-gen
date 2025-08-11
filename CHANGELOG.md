@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2025-08-11
+
+### Added
+
+- 🔒 **Internal/Public Content Control**: Major new feature for controlling content visibility
+  - `--with-internal` CLI flag to include confidential content
+  - `internal: true` flag for projects, quarters, details, and metrics
+  - `internal_notes` field for sensitive quarter information (always excluded from public view)
+  - Granular control at multiple levels: entire projects, specific quarters, individual details, or metrics
+  - Automatic filtering of empty categories after internal content removal
+
+### Enhanced
+
+- **TypeScript Types**: Extended with `DetailItem`, `MetricItem`, and union types (`DetailEntry`, `MetricEntry`)
+- **HTML Generation**: Updated utilities with `detailEntriesToStrings()` and `metricEntriesToStrings()` helpers
+- **Build Process**: Enhanced filtering pipeline with comprehensive content processing
+- **Template System**: Support for new data structures while maintaining backward compatibility
+
+### Technical
+
+- **New Filtering Logic**: `filterInternalContent()` function with multi-level content filtering
+- **Helper Functions**: `filterDetailEntries()` and `filterMetricEntries()` for granular filtering
+- **Code Quality**: Refactored build function to reduce complexity (split into smaller functions)
+- **Test Coverage**: 4 new comprehensive tests for internal content filtering scenarios
+
+### Security
+
+- **Content Privacy**: Ensures sensitive information is never leaked to public roadmaps
+- **Default Behavior**: Public-first approach - internal content hidden by default
+- **Validation**: Comprehensive filtering at all data structure levels
+
 ## [0.3.1] - 2025-08-11
 
 ### Added

@@ -11,7 +11,7 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ## Project Details
 
 - **Name**: roadmap-gen
-- **Version**: 0.3.1
+- **Version**: 0.4.0
 - **Runtime**: Bun (primary), Node.js compatible
 - **Language**: TypeScript with strict configuration
 - **Architecture**: Modular design with separation of concerns
@@ -23,6 +23,14 @@ The package provides both a CLI tool for direct usage and a programmatic API for
 ```bash
 # Direct usage with Bun (recommended)
 bunx roadmap-gen
+
+# With custom source file
+bunx roadmap-gen --source ./my-roadmap.yaml
+bunx roadmap-gen -s ./config/roadmap.yaml
+
+# Include internal content (confidential projects and details)
+bunx roadmap-gen --with-internal
+bunx roadmap-gen -s ./roadmap.yaml --with-internal
 
 # With theme (external theme directory)
 bunx roadmap-gen -s ./my-roadmap.yaml -t themes/cards -o ./public
@@ -50,8 +58,9 @@ const html = generateHTML(roadmap);
 writeFileSync('roadmap.html', html);
 
 // Or use the main build function
-await build(); // Uses defaults
+await build(); // Uses defaults (public view)
 await build('./data.yaml', 'themes/cards', './public'); // All custom
+await build('./roadmap.yaml', '<embedded>', 'dist', true); // With internal content
 ```
 
 ### Local Development
@@ -158,19 +167,66 @@ categories:
           Q1-2025:
             status: 'in-progress'
             description: 'Migrating core services'
-            details: ['Setup AWS infrastructure', 'Migrate databases']
+            details:
+              - 'Setup AWS infrastructure'
+              - 'Migrate databases'
+              - text: 'Internal: Vendor contract negotiations'
+                internal: true # Hidden from public roadmaps
             progress: '60%' # Can be percentage, fraction, phase, or text
             risks: ['Potential downtime during migration']
+            internal_notes: 'Budget approval pending from board'
           Q2-2025:
             status: 'planned'
             description: 'Complete migration'
+            internal: true # Entire quarter is confidential
+
+      # Internal project - completely hidden in public view
+      - name: 'Security Audit'
+        internal: true
+        responsible: 'Security Team'
+        quarters:
+          Q1-2025:
+            status: 'in-progress'
+            description: 'Penetration testing'
 
 metrics:
   kpis:
     - 'System uptime > 99.9%'
     - 'Performance improvement > 25%'
+    - text: 'Internal KPI: Cost reduction target'
+      internal: true
   risks:
     - 'Resource constraints in Q3'
+    - text: 'Internal risk: Staff retention concerns'
+      internal: true
+```
+
+## Internal/Public Content Control (v0.4.0)
+
+🔒 **NEW**: Control content visibility for different audiences:
+
+### Content Visibility Levels
+
+- **Public by default**: All content visible without flags
+- **Internal content**: Hidden unless `--with-internal` flag is used
+- **Granular control**: Mark specific projects, quarters, details, or metrics as internal
+
+### Internal Content Types
+
+- **Projects**: `internal: true` - Entire project hidden from public view
+- **Quarter Details**: `internal: true` - Specific quarter data hidden
+- **Individual Details**: `{ text: "...", internal: true }` - Specific detail items hidden
+- **Metrics**: `{ text: "...", internal: true }` - Specific KPIs/risks hidden
+- **Internal Notes**: `internal_notes: "..."` - Always excluded from public view
+
+### Usage Examples
+
+```bash
+# Public roadmap (default) - internal content filtered out
+bunx roadmap-gen --source roadmap.yaml
+
+# Full roadmap with internal content
+bunx roadmap-gen --source roadmap.yaml --with-internal
 ```
 
 ## Project Status Indicators

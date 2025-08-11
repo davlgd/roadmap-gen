@@ -11,6 +11,7 @@ Transform your project roadmap into beautiful, interactive visualizations. Built
 ## ✨ Features
 
 - **🎨 Multiple Themes**: Professional themes for different audiences
+- **🔒 Internal/Public Control**: Show/hide confidential content with `--with-internal` flag
 - **📊 Interactive Visualizations**: Project tracking across quarters with status indicators
 - **⚡ Lightning Fast**: Built with Bun runtime for optimal performance
 - **🔧 Simple Configuration**: YAML format for defining roadmaps
@@ -45,8 +46,14 @@ Download from [releases page](https://github.com/davlgd/roadmap-gen/releases) fo
 bunx roadmap-gen
 npx roadmap-gen
 
-# With options
-roadmap-gen -s ./my-roadmap.yaml -t themes/cards -o ./public
+# With custom source
+roadmap-gen --source ./my-roadmap.yaml
+
+# Include internal/confidential content
+roadmap-gen --with-internal
+
+# With all options
+roadmap-gen -s ./my-roadmap.yaml -t themes/cards -o ./public --with-internal
 
 # Show help
 roadmap-gen --help
@@ -57,7 +64,8 @@ roadmap-gen --help
 ```typescript
 import { build } from 'roadmap-gen';
 
-await build(); // Uses defaults
+await build(); // Uses defaults (public view)
+await build('./data.yaml', 'themes/cards', './dist', true); // With internal content
 await build('./data.yaml', 'themes/cards', './public');
 ```
 
@@ -78,11 +86,18 @@ categories:
       - name: 'Cloud Migration'
         responsible: 'DevOps Team'
         issue: 'https://github.com/org/repo/issues/123'
+        # A project can be public or internal (0.4.0+)
+        # internal: true
         quarters:
           Q1-2025:
             status: 'in-progress'
             description: 'Migrating core services'
+            details:
+              - 'Database migration completed'
+              - text: 'Internal: Vendor contract details'
+                internal: true # Hidden from public roadmaps (0.4.0+)
             progress: '60%'
+            internal_notes: 'Budget approval pending' # Hidden from public roadmaps (0.4.0+)
 ```
 
 ## 🎨 Themes
